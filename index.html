@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>Test</title>
+    
+</head>
+<body>
+    <div class='add-class'>
+        <input id='className' type='text' placeholder='Name' />
+        <input type='button' onclick='addClass()' value='Submit' />
+    </div>
+    <br />
+    <table id='classTable'>
+        <tr id='tableHeader'>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </table>
+    
+    
+    <script src='src/database.js'></script>
+    <script src='lib/npo.js'></script>
+    
+    <script>
+        function addClass() {
+            var nameElement = document.getElementById('className');
+            var name = nameElement.value;
+            Database.insertClass({name: name}).then(updateTable, function (e) {
+                alert(e.message);
+            });
+        }
+        
+        function updateTable() {
+            var tableHeader = document.getElementById('tableHeader');
+            var classTable = document.getElementById('classTable');
+            classTable.innerHTML = '';
+            classTable.appendChild(tableHeader);
+            
+            Database.getClasses().then(function (classes) {
+                var length = classes.length;
+                for (var i = 0; i < length; i++) {
+                    var html = '<td>' + classes[i].id + '</td>' +
+                               '<td>' + classes[i].name + '</td>' +
+                               '<td><button onclick="deleteClass(' + classes[i].id + ')">Delete</button></td>' +
+                               '<td><button onclick="renameClass(' + classes[i].id + ')">Rename</button></td>';
+                    var row = document.createElement('tr');
+                    
+                    row.innerHTML = html;
+                    
+                    classTable.appendChild(row);
+                }
+            }, function (e) {
+                alert(e.message);
+            });
+        }
+        
+        function deleteClass(id) {
+            Database.deleteClass(id).then(updateTable, function (e) {
+                alert(e.message);
+            });
+        }
+        
+        function renameClass(id) {
+            var nameElement = document.getElementById('className');
+            var name = nameElement.value;
+            Database.updateClass({id: id, name: name}).then(updateTable, function (e) {
+                alert(e.message);
+            });
+        }
+        
+        updateTable();
+    </script>
+</body>
+</html>
