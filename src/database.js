@@ -1,4 +1,6 @@
 var Database = (function (openDatabase) {
+    'use strict';
+
     var isReady = false;
     var dbName = 'hw-org.db';
     var db;
