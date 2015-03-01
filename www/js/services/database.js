@@ -1,13 +1,23 @@
-var Database = (function (openDatabase) {
-    'use strict';
+'use strict';
 
+var module = angular.module('hwo.data', [ 'ionic' ]);
+module.constant('openDatabase', window.openDatabase);
+module.service('database', Database);
+
+function Database($q, $ionicPlatform, openDatabase) {
     var isReady = false;
     var dbName = 'hw-org.db';
     var db;
     
-    onDeviceReady();
-    //deleteDatabase();
-    createDatabase();
+    var extend = angular.extend;
+    var isObject = angular.isObject;
+    var isDefined = angular.isDefined;
+    
+    $ionicPlatform.ready(onDeviceReady)
+        .then(function () {
+            isReady = true;
+            createDatabase();
+        });
     
     
     return {
@@ -30,7 +40,7 @@ var Database = (function (openDatabase) {
     /* Methods - Classes */
     
     function getClasses() {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('SELECT id, name FROM Classes;',
                     [],
@@ -51,7 +61,7 @@ var Database = (function (openDatabase) {
      * @param {string} klass.name
      */
     function insertClass(klass) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO Classes(name) VALUES (?);',
                     [ klass.name ],
@@ -70,7 +80,7 @@ var Database = (function (openDatabase) {
      * @param {number} id
      */
     function deleteClass(id) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('DELETE FROM Classes WHERE id = ?;',
                     [ id ],
@@ -99,7 +109,7 @@ var Database = (function (openDatabase) {
      * @param {string} klass.name
      */
     function updateClass(klass) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Classes SET name = ? WHERE id = ?;',
                     [ klass.name, klass.id ],
@@ -122,12 +132,43 @@ var Database = (function (openDatabase) {
      * @param {boolean} [filter.excludeCompleted=false] - Whether to exclude complete assignments
      * @param {Date} [filter.before] - Only assignments due before the given date and time will be returned.
      * @param {Date} [filter.after] - Only assignments due after the given date and time will be returned.
+     * @param {Object} [order] - Determines the order of the results
+     * @param {boolean} [order.orderByDate=true] - Orders the resulting assignments by due date and time.
      */
-    function getAssignments(filter) {
+    function getAssignments(filter, order) {
         var sql = 'SELECT id, name, dueDateTime, completed, classId FROM Assignments';
+        var defaults = {
+            filter: {
+                excludeCompleted: false
+            },
+            order: {
+                orderByDate: true
+            }
+        };
         var args = [];
         
-        if (filter && (filter.classId || filter.excludeCompleted || filter.before || filter.after)) {
+        filter = extend({}, filter, defaults.filter);
+        order = extend({}, order, defaults.order);
+        
+        sql += buildWhereSql();
+        sql += buildOrderSql();
+        sql += ';';
+        
+        return $q(function (resolve, reject) {
+            db.transaction(function (tx) {
+                tx.executeSql(sql, args,
+                    function (tx, res) {
+                        var arr = rowsToArray(res.rows);
+                        resolve(arr);
+                    },
+                    function (tx, e) {
+                        reject(e);
+                    }
+                );
+            });
+        });
+        
+        function buildWhereSql() {
             var whereSql = '';
             
             if (filter.classId) {
@@ -152,24 +193,18 @@ var Database = (function (openDatabase) {
                 args.push(filter.after.valueOf());
             }
             
-            sql += whereSql;
+            return whereSql;
         }
-        
-        sql += ';';
-        
-        return new Promise(function (resolve, reject) {
-            db.transaction(function (tx) {
-                tx.executeSql(sql, args,
-                    function (tx, res) {
-                        var arr = rowsToArray(res.rows);
-                        resolve(arr);
-                    },
-                    function (tx, e) {
-                        reject(e);
-                    }
-                );
-            });
-        });
+    
+        function buildOrderSql() {
+            var orderSql = '';
+            
+            if (order.orderByDate) {
+                orderSql += ' ORDER BY dueDateTime DESC';
+            }
+            
+            return orderSql;
+        }
     }
     
     /**
@@ -179,7 +214,7 @@ var Database = (function (openDatabase) {
      * @param {number} assignment.classId
      */
     function insertAssignment(assignment) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO Assignments(name, dueDateTime, completed, classId) VALUES (?, ?, FALSE, ?);',
                     [ assignment.name, assignment.dueDateTime, assignment.classId ],
@@ -198,7 +233,7 @@ var Database = (function (openDatabase) {
      * @param {number} id
      */
     function deleteAssignment(id) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('DELETE FROM Assignments WHERE id = ?;',
                     [ id ],
@@ -221,7 +256,7 @@ var Database = (function (openDatabase) {
      * @param {boolean} assignment.completed
      */
     function updateAssignment(assignment) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET name=?, dueDateTime=?, completed=?, classId=? WHERE id = ?;',
                     [ assignment.name, assignment.dueDateTime, !!assignment.completed, assignment.classId, assignment.id ],
@@ -242,7 +277,7 @@ var Database = (function (openDatabase) {
      * @param {boolean} completed - whether the assignment is completed
      */
     function setAssignmentCompleted(id, completed) {
-        return new Promise(function (resolve, reject) {
+        return $q(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET completed=? WHERE id = ?;',
                     [ completed, id ],
@@ -259,13 +294,7 @@ var Database = (function (openDatabase) {
     
     /* Setup */
     
-    //document.addEventListener('deviceready' , onDeviceReady, false);
-    
     function onDeviceReady() {
-        //db = openDatabase({
-        //    name: dbName
-        //});
-        
         db = openDatabase(dbName, '1.0', 'Homework Organizer Database', 1024 * 1024);
         
         isReady = true;
@@ -288,16 +317,14 @@ var Database = (function (openDatabase) {
             tx.executeSql('DROP TABLE IF EXISTS Classes;');
         });
     }
-    
-    /* Utilities */
-    function rowsToArray(rows) {
-        var length = rows.length;
-        var arr = [];
-        for (var i = 0; i < length; i++) {
-            arr[i] = rows.item(i);
-        }
-        return arr;
+}
+
+/* Utilities */
+function rowsToArray(rows) {
+    var length = rows.length;
+    var arr = [];
+    for (var i = 0; i < length; i++) {
+        arr[i] = rows.item(i);
     }
-    
-    
-})(window.openDatabase);
+    return arr;
+}
