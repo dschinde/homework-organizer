@@ -7,5 +7,7 @@ function ClassListCtrl($scope, database) {
     $scope.data = {};
     database.getClasses().then(function (classes) {
         $scope.data.classes = classes;
+    }, function (e) {
+        alert(e.message);
     });
 }

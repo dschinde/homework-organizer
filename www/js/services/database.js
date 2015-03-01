@@ -5,19 +5,20 @@ module.constant('openDatabase', window.openDatabase);
 module.service('database', Database);
 
 function Database($q, $ionicPlatform, openDatabase) {
-    var isReady = false;
-    var dbName = 'hw-org.db';
+    var dbName = 'hwo.db';
     var db;
     
     var extend = angular.extend;
     var isObject = angular.isObject;
     var isDefined = angular.isDefined;
     
-    $ionicPlatform.ready(onDeviceReady)
-        .then(function () {
-            isReady = true;
-            createDatabase();
-        });
+    var ready = $ionicPlatform.ready(function () {
+        db = openDatabase(dbName, '1.0', 'Homework Organizer Database', 1024 * 1024);
+    }).then(function () {
+        createDatabase();
+    }, function (e) {
+        alert(e.message);
+    });
     
     
     return {
@@ -40,7 +41,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     /* Methods - Classes */
     
     function getClasses() {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('SELECT id, name FROM Classes;',
                     [],
@@ -61,7 +62,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {string} klass.name
      */
     function insertClass(klass) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO Classes(name) VALUES (?);',
                     [ klass.name ],
@@ -80,7 +81,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {number} id
      */
     function deleteClass(id) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('DELETE FROM Classes WHERE id = ?;',
                     [ id ],
@@ -109,7 +110,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {string} klass.name
      */
     function updateClass(klass) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Classes SET name = ? WHERE id = ?;',
                     [ klass.name, klass.id ],
@@ -154,7 +155,7 @@ function Database($q, $ionicPlatform, openDatabase) {
         sql += buildOrderSql();
         sql += ';';
         
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql(sql, args,
                     function (tx, res) {
@@ -214,7 +215,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {number} assignment.classId
      */
     function insertAssignment(assignment) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO Assignments(name, dueDateTime, completed, classId) VALUES (?, ?, FALSE, ?);',
                     [ assignment.name, assignment.dueDateTime, assignment.classId ],
@@ -233,7 +234,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {number} id
      */
     function deleteAssignment(id) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('DELETE FROM Assignments WHERE id = ?;',
                     [ id ],
@@ -256,7 +257,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {boolean} assignment.completed
      */
     function updateAssignment(assignment) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET name=?, dueDateTime=?, completed=?, classId=? WHERE id = ?;',
                     [ assignment.name, assignment.dueDateTime, !!assignment.completed, assignment.classId, assignment.id ],
@@ -277,7 +278,7 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {boolean} completed - whether the assignment is completed
      */
     function setAssignmentCompleted(id, completed) {
-        return $q(function (resolve, reject) {
+        return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET completed=? WHERE id = ?;',
                     [ completed, id ],
@@ -294,12 +295,6 @@ function Database($q, $ionicPlatform, openDatabase) {
     
     /* Setup */
     
-    function onDeviceReady() {
-        db = openDatabase(dbName, '1.0', 'Homework Organizer Database', 1024 * 1024);
-        
-        isReady = true;
-    }
-    
     function createDatabase() {
         db.transaction(function (tx) {
             tx.executeSql('CREATE TABLE IF NOT EXISTS Classes(id INTEGER UNIQUE PRIMARY KEY, name TEXT);');
@@ -315,6 +310,12 @@ function Database($q, $ionicPlatform, openDatabase) {
             tx.executeSql('DROP INDEX IF EXISTS assignmentsIndex;');
             tx.executeSql('DROP TABLE IF EXISTS Assignments;');
             tx.executeSql('DROP TABLE IF EXISTS Classes;');
+        });
+    }
+    
+    function promise(fn) {
+        return ready.then(function () {
+            return $q(fn);
         });
     }
 }
