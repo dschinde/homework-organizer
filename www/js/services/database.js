@@ -106,7 +106,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     
     /**
      * @param {Object} klass
-     * @param {number} klass.ids
+     * @param {number} klass.id
      * @param {string} klass.name
      */
     function updateClass(klass) {
@@ -159,7 +159,21 @@ function Database($q, $ionicPlatform, openDatabase) {
             db.transaction(function (tx) {
                 tx.executeSql(sql, args,
                     function (tx, res) {
-                        var arr = rowsToArray(res.rows);
+                        var arr = [];
+                        var rows = res.rows;
+                        var length = rows.length;
+                        
+                        for (var i = 0; i < length; i++) {
+                            var assignment = rows.item(i);
+                            arr.push({
+                                id: assignment.id,
+                                name: assignment.name,
+                                dueDateTime: new Date(assignment.dueDateTime),
+                                completed: assignment.completed,
+                                classId: assignment.classId
+                            });
+                        }
+                        
                         resolve(arr);
                     },
                     function (tx, e) {
@@ -217,7 +231,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     function insertAssignment(assignment) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO Assignments(name, dueDateTime, completed, classId) VALUES (?, ?, FALSE, ?);',
+                tx.executeSql('INSERT INTO Assignments(name, dueDateTime, completed, classId) VALUES (?, ?, 0, ?);',
                     [ assignment.name, assignment.dueDateTime, assignment.classId ],
                     function (tx, res) {
                         resolve(res);
@@ -251,6 +265,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     
     /**
      * @param {Object} assignment
+     * @param {number} assignment.id
      * @param {string} assignment.name
      * @param {Date} assignment.dueDateTime
      * @param {number} assignment.classId

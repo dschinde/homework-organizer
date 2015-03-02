@@ -1,8 +1,5 @@
-// Ionic Starter App
+var isDefined = angular.isDefined;
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 angular.module('hwo', [
     'ionic',
     'hwo.data'
@@ -22,6 +19,36 @@ angular.module('hwo', [
         url: '/insertClass',
         templateUrl: 'templates/insert-class.html',
         controller: 'InsertClassCtrl'
+    })
+    
+    .state('assignmentList', {
+        url: '/assignmentList?classId&className',
+        templateUrl: 'templates/assignment-list.html',
+        resolve: {
+            klass: function ($stateParams) {
+                if (!isDefined($stateParams.classId)) {
+                    return null;
+                }
+                
+                return { id: $stateParams.classId, name: $stateParams.className };
+            }
+        },
+        controller: 'AssignmentListCtrl',
+        cache: false
+    })
+    .state('insertAssignment', {
+        url: '/insertAssignment?classId&className',
+        templateUrl: 'templates/insert-assignment.html',
+        resolve: {
+            klass: function ($stateParams) {
+                if (!isDefined($stateParams.classId)) {
+                    return null;
+                }
+                
+                return { id: $stateParams.classId, name: $stateParams.className };
+            }
+        },
+        controller: 'InsertAssignmentCtrl'
     });
 })
 
