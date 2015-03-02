@@ -8,7 +8,6 @@ function AssignmentListCtrl($scope, database, klass) {
     // klass is resolved in the state config for assignmentList
     
     var filter = { excludeCompleted: true };
-    alert(JSON.stringify(klass));
     if (klass) {
         $scope.klass = klass;
         
