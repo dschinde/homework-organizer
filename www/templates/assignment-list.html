@@ -1,0 +1,21 @@
+<ion-view title="Assignments">
+    <ion-nav-buttons side="primary">
+        <a class="button button-clear button-positive" ui-sref="classList">Classes</a>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="secondary">
+        <!-- This needs to become ion-ios-plus-empty at some point. -->
+        <a class="button button-icon icon ion-plus" ui-sref="insertAssignment({classId: klass.id, className: klass.name})"></a>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="list">
+            <div class="item" ng-repeat="dateGroup in dateGroups">
+                <div class="item item-divider">
+                    {{ dateGroup.date | date : 'fullDate' }}
+                </div>
+                <div class="item" ng-repeat="assignment in dateGroup.assignments">
+                    {{ assignment.name }}
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

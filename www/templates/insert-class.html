@@ -1,0 +1,11 @@
+<ion-view title="Add Class">
+    <ion-nav-buttons side="primary">
+        <button class="button button-clear button-positive" ng-click="cancel()">Cancel</button>
+    </ion-nav-buttons>
+    <ion-content>
+        <label class="item item-input">
+            <input type="text" placeholder="Class Name" ng-model="klass.name" />
+        </label>
+        <button class="button button-positive" ng-click="submit(klass)">Submit</button>
+    </ion-content>
+</ion-view>

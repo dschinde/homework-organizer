@@ -2,7 +2,8 @@ var isDefined = angular.isDefined;
 
 angular.module('hwo', [
     'ionic',
-    'hwo.data'
+    'hwo.data',
+    'hwo.templates' // Generated during build
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

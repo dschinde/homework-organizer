@@ -8,7 +8,7 @@ function AssignmentListCtrl($scope, database, klass) {
     // klass is resolved in the state config for assignmentList
     
     var filter = { excludeCompleted: true };
-    alert(JSON.stringify(klass));
+    
     if (klass) {
         $scope.klass = klass;
         
@@ -52,13 +52,8 @@ function AssignmentListCtrl($scope, database, klass) {
         }
         
         function createGroup(assignment) {
-            var date = new Date(
-                assignment.dueDateTime.getFullYear(),
-                assignment.dueDateTime.getMonth(),
-                assignment.dueDateTime.getDay());
-            
             return {
-                date: date,
+                date: assignment.date,
                 assignments: [ assignment ]
             };
         }
