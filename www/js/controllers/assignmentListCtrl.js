@@ -37,7 +37,7 @@ function AssignmentListCtrl($scope, database, klass) {
                 current.assignments.push(assignment);
             } else {
                 groups.push(current);
-                current = createGroup(assignment[i]);
+                current = createGroup(assignments[i]);
             }
         }
         
@@ -53,7 +53,7 @@ function AssignmentListCtrl($scope, database, klass) {
         
         function createGroup(assignment) {
             return {
-                date: assignment.date,
+                date: assignment.dueDateTime,
                 assignments: [ assignment ]
             };
         }

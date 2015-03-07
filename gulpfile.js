@@ -5,12 +5,6 @@ var mkdirp = require('mkdirp');
 var ngTemplates = require('gulp-angular-templatecache');
 var open = require('gulp-open');
 
-
-
-
-
-
-
 /* Build tasks */
 
 gulp.task('clean', function (done) {
