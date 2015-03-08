@@ -12,7 +12,10 @@
                 <div class="item item-divider">
                     {{ dateGroup.date | date : 'fullDate' }}
                 </div>
-                <div class="item" ng-repeat="assignment in dateGroup.assignments">
+                <div class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                    </label>
                     {{ assignment.name }}
                 </div>
             </div>

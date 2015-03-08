@@ -61,5 +61,5 @@ gulp.task('default', [ 'build' ]);
 /* Run tasks */
 gulp.task('run', function () {
     return gulp.src('build/index.html')
-            .pipe(open('build/index.html', { app: 'chrome' }));
+            .pipe(open('build/index.html', { app: 'google chrome' }));
 });
