@@ -55,11 +55,15 @@ gulp.task('templates', ['clean'], function () {
 
 gulp.task('build', [ 'clean', 'img', 'css', 'lib', 'scripts', 'index', 'templates']);
 
-gulp.task('default', [ 'build' ]);
-
-
 /* Run tasks */
-gulp.task('run', function () {
+gulp.task('run', run);
+
+
+/* Default task */
+gulp.task('default', [ 'build' ], run);
+
+/* Runs the app */
+function run() {
     var options = {};
     if (process.platform === 'win32') {
         options.app = 'chrome';
@@ -69,4 +73,4 @@ gulp.task('run', function () {
 
     return gulp.src('build/index.html')
             .pipe(open('build/index.html', options));
-});
+}
