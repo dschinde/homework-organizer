@@ -22,6 +22,10 @@ function AssignmentListCtrl($scope, database, klass) {
         alert(e.message);
     });
     
+    $scope.setCompleted = function (assignment) {
+        database.setAssignmentCompleted(assignment.id, assignment.completed);
+    };
+    
     
     
     

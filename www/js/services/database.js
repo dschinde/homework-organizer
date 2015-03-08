@@ -169,7 +169,7 @@ function Database($q, $ionicPlatform, openDatabase) {
                                 id: assignment.id,
                                 name: assignment.name,
                                 dueDateTime: new Date(assignment.dueDateTime),
-                                completed: assignment.completed,
+                                completed: !!assignment.completed,
                                 classId: assignment.classId
                             });
                         }
@@ -293,6 +293,9 @@ function Database($q, $ionicPlatform, openDatabase) {
      * @param {boolean} completed - whether the assignment is completed
      */
     function setAssignmentCompleted(id, completed) {
+        // An integer is needed in the database
+        completed = completed ? 1 : 0;
+        
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET completed=? WHERE id = ?;',
