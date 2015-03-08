@@ -60,6 +60,13 @@ gulp.task('default', [ 'build' ]);
 
 /* Run tasks */
 gulp.task('run', function () {
+    var options = {};
+    if (process.platform === 'win32') {
+        options.app = 'chrome';
+    } else {
+        options.app = 'google chrome';
+    }
+
     return gulp.src('build/index.html')
-            .pipe(open('build/index.html', { app: 'google chrome' }));
+            .pipe(open('build/index.html', options));
 });
