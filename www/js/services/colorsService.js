@@ -1,14 +1,25 @@
 'use strict';
 
-var module = angular.module('hwo');
+var isObject = angular.isObject;
+
+var module = angular.module('hwo.ui');
 module.service('colors', ColorsService);
 
 function ColorsService() {
-    var colors = [ 'red', 'green', 'blue', 'orange', 'purple', 'white' ];
+    var colors = [
+        { name: 'red', text: 'white' },
+        { name: 'green' },
+        { name: 'blue', text: 'white' },
+        { name: 'orange' },
+        { name: 'purple', text: 'white' },
+        { name: 'white' }
+    ];
+    
     var length = colors.length;
     
     return {
-        getIterator: Iterator
+        getIterator: Iterator,
+        getTextColor: getTextColor
     };
     
     function Iterator() {
@@ -39,5 +50,16 @@ function ColorsService() {
         function current() {
             return colors[index];
         }
+    }
+
+    function getTextColor(value) {
+        for (var i = 0; i < length; i++) {
+            var color = colors[i];
+            if ((color.name === value) || (color.hex && (color.hex === value))) {
+                return color.text || 'black';
+            }
+        }
+        
+        return 'black';
     }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo.data', [ 'ionic' ]);
+var module = angular.module('hwo.data');
 module.constant('openDatabase', window.openDatabase);
 module.service('database', Database);
 
@@ -15,6 +15,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     var ready = $ionicPlatform.ready(function () {
         db = openDatabase(dbName, '1.0', 'Homework Organizer Database', 1024 * 1024);
     }).then(function () {
+        deleteDatabase();
         createDatabase();
     }, function (e) {
         alert(e.message);
@@ -43,7 +44,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     function getClasses() {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('SELECT id, name FROM Classes;',
+                tx.executeSql('SELECT id, name, color FROM Classes;',
                     [],
                     function (tx, res) {
                         var arr = rowsToArray(res.rows);
@@ -64,8 +65,8 @@ function Database($q, $ionicPlatform, openDatabase) {
     function insertClass(klass) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO Classes(name) VALUES (?);',
-                    [ klass.name ],
+                tx.executeSql('INSERT INTO Classes(name, color) VALUES (?, ?);',
+                    [ klass.name, klass.color ],
                     function (tx, res) {
                         resolve(res);
                     },
@@ -112,8 +113,8 @@ function Database($q, $ionicPlatform, openDatabase) {
     function updateClass(klass) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('UPDATE Classes SET name = ? WHERE id = ?;',
-                    [ klass.name, klass.id ],
+                tx.executeSql('UPDATE Classes SET name = ?, color = ? WHERE id = ?;',
+                    [ klass.name, klass.color, klass.id ],
                     function (tx, res) {
                         resolve(res);
                     },
@@ -315,7 +316,7 @@ function Database($q, $ionicPlatform, openDatabase) {
     
     function createDatabase() {
         db.transaction(function (tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS Classes(id INTEGER UNIQUE PRIMARY KEY, name TEXT);');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS Classes(id INTEGER UNIQUE PRIMARY KEY, name TEXT, color TEXT);');
                 
             tx.executeSql('CREATE TABLE IF NOT EXISTS Assignments(id INTEGER UNIQUE PRIMARY KEY, name TEXT, dueDateTime DATE, completed BOOLEAN, classId INTEGER REFERENCES Classes);');
             

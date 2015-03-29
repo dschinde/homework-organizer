@@ -1,8 +1,12 @@
 var isDefined = angular.isDefined;
 
+angular.module('hwo.data', ['ionic']);
+angular.module('hwo.ui', []);
+
 angular.module('hwo', [
     'ionic',
     'hwo.data',
+    'hwo.ui',
     'hwo.templates' // Generated during build
 ])
 

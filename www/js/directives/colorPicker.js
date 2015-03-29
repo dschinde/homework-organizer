@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo');
+var module = angular.module('hwo.ui');
 module.directive('hwoColorPicker', ColorPickerDirective);
 
 function ColorPickerDirective(colors) {
@@ -33,7 +33,7 @@ function ColorPickerDirective(colors) {
             }
             
             function setColor() {
-                ngModel.$setViewValue(scope.color);
+                ngModel.$setViewValue(scope.color.hex || scope.color.name);
             }
         }
     };
