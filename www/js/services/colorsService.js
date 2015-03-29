@@ -7,12 +7,23 @@ module.service('colors', ColorsService);
 
 function ColorsService() {
     var colors = [
-        { name: 'red', text: 'white' },
-        { name: 'green' },
-        { name: 'blue', text: 'white' },
-        { name: 'orange' },
-        { name: 'purple', text: 'white' },
-        { name: 'white' }
+        { hex: '#1A53FF', text: 'white' },
+        { hex: '#531AFF', text: 'white' },
+        { hex: '#C61AFF' },
+        { hex: '#FF1AC6' },
+        { hex: '#1AC6FF' },
+        { hex: '#5781FF' },
+        { hex: '#94AFFF' },
+        { hex: '#FF1A53', text: 'white' },
+        { hex: '#1AFFC6' },
+        { hex: '#FFE494' },
+        { hex: '#FFD557' },
+        { hex: '#FF531A', text: 'white' },
+        { hex: '#1AFF53' },
+        { hex: '#53FF1A' },
+        { hex: '#C6FF1A' },
+        { hex: '#FFC61A' },
+        { hex: '#FFFFFF' }
     ];
     
     var length = colors.length;
