@@ -11,13 +11,14 @@ A homework organizer for mobile devices
 	git commit -m "msg"
 	git push origin master
 
-# Gulp
 
-## Building the app:
-	gulp build
+# Ionic View
+* Download the Ionic View app from the App Store
 
-## Running the app:
-	gulp run
+* Create an Ionic View account
 
-## Building and then running the app:
-	gulp
+* Upload your app by using:
+
+        ionic upload
+        
+  in your app directory
