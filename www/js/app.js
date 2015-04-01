@@ -6,8 +6,7 @@ angular.module('hwo.ui', []);
 angular.module('hwo', [
     'ionic',
     'hwo.data',
-    'hwo.ui',
-    'hwo.templates' // Generated during build
+    'hwo.ui'
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
