@@ -16,7 +16,8 @@ angular.module('hwo', [
     .state('classList', {
         url: '/classList',
         templateUrl: 'templates/class-list.html',
-        controller: 'ClassListCtrl'
+        controller: 'ClassListCtrl',
+        cache: false
     })
     .state('insertClass', {
         url: '/insertClass',
@@ -36,7 +37,8 @@ angular.module('hwo', [
                 return { id: $stateParams.classId, name: $stateParams.className };
             }
         },
-        controller: 'AssignmentListCtrl'
+        controller: 'AssignmentListCtrl',
+        cache: false
     })
     .state('insertAssignment', {
         url: '/insertAssignment?classId&className',
