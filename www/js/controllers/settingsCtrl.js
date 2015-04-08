@@ -3,10 +3,18 @@
 var module = angular.module('hwo');
 module.controller('SettingsCtrl', SettingsCtrl);
 
-function SettingsCtrl($scope, $ionicHistory, localStorage) {
+function SettingsCtrl($scope, $ionicHistory, database, colors, localStorage) {
 	$scope.back = function () {
         $ionicHistory.goBack();
     }
+    
+    $scope.textColor = function (color) {
+        return colors.getTextColor(color);
+    };
+    
+    database.getClasses().then(function (classes) {
+        $scope.classes = classes;
+    });
 
     /* Define properties here */
     defineProperty('allowPushNotifications');

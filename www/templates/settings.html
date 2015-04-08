@@ -3,9 +3,11 @@
 		<button class="button button-clear button-positive" ng-click="back()">Back</button>
 	</ion-nav-buttons>
 	<ion-content>
-		<h4 class="title">Push Notifications</h4>
-		<ul class="list">
-			<li class="item item-toggle">
+        <div class="list">
+            <div class="item item-divider">
+                Push Notifications
+            </div>
+            <div class="item item-toggle">
 				Allow
 				<label class="toggle toggle-assertive">
 					<input type="checkbox" ng-model="allowPushNotifications"/>
@@ -13,12 +15,37 @@
 						<div class="handle"></div>
 					</div>
 				</label>
-			</li>
-		</ul>
-		<h4 class="title">Filter</h4>
-		<div class="button-bar">
-			<a class="button button-positive">By Class</a>
-  			<a class="button button-positive">By Week</a>
-  		</div>
+			</div>
+            
+            <div class="item item-divider">
+                Assignments View
+            </div>
+            <label class="item item-radio">
+                <input type="radio" name="assignmentViewType" />
+                <div class="item-content">
+                    Sort By Class
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio">
+                <input type="radio" name="assignmentViewType" />
+                <div class="item-content">
+                    Sort By Week
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            
+            
+            <div class="item item-divider">
+                Classes
+            </div>
+            <div class="item" ng-repeat="klass in classes" ng-style="{ backgroundColor: klass.color, color: textColor(klass.color) }">
+                {{klass.name}}
+            </div>
+            <a class="item item-icon-right" ui-sref="insertClass">
+                Add Class
+                <i class="icon ion-plus"></i>
+            </a>
+        </div>
 	</ion-content>
 </ion-view>
