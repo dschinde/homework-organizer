@@ -4,25 +4,12 @@ var module = angular.module('hwo');
 module.controller('SettingsCtrl', SettingsCtrl);
 
 function SettingsCtrl($scope, $ionicHistory, localStorage) {
-	/*$scope.settings = {
-		set allowPushNotifications(val) { 
-			localStorage.set('allowPushNotifications', val)
-		},
-		get allowPushNotifications() {
-			return localStorage.get('allowPushNotifications')
-		}
-	}*/
-
-	var isDefined = angular.isDefined;
-
-	console.log(isDefined($scope));
-
-	$scope.cancel = function () {
+	$scope.back = function () {
         $ionicHistory.goBack();
     }
 
     /* Define properties here */
-    defineProperty('push');
+    defineProperty('allowPushNotifications');
 
     function defineProperty(name) {
     	Object.defineProperty($scope, name, {
@@ -37,20 +24,4 @@ function SettingsCtrl($scope, $ionicHistory, localStorage) {
     		}
     	});
     }
-
-	/*addProperty('allowPushNotifications');
-
-	function addProperty(name) {
-		var descriptor = {
-			get: function () { 
-				return localStorage.get(name);
-			},
-			set: function (val) {
-				localStorage.set(name, val);
-			}
-		};
-
-		Object.defineProperty($scope, name, descriptor);
-	}*/
-
 }
