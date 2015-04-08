@@ -53,6 +53,11 @@ angular.module('hwo', [
             }
         },
         controller: 'InsertAssignmentCtrl'
+    })
+    .state('settings', {
+        url: '/settings',
+        templateUrl: 'templates/settings.html',
+        controller: 'SettingsCtrl'
     });
 })
 
