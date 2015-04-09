@@ -1,7 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo');
-module.controller('InsertAssignmentCtrl', InsertAssignmentCtrl);
+angular.module('hwo').controller('InsertAssignmentCtrl', InsertAssignmentCtrl);
 
 function InsertAssignmentCtrl($scope, $ionicHistory, database, klass) {
     // klass is resolved in the state config for assignmentList

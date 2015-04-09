@@ -1,9 +1,12 @@
 'use strict';
 
-var module = angular.module('hwo');
-module.controller('SettingsCtrl', SettingsCtrl);
+angular.module('hwo')
+.controller('SettingsCtrl', SettingsCtrl)
+.config(function (settingsProvider) {
+    settingsProvider.define('allowPushNotifications');
+});
 
-function SettingsCtrl($scope, $ionicHistory, database, localStorage) {
+function SettingsCtrl($scope, $ionicHistory, database, settings) {
 	$scope.back = function () {
         $ionicHistory.goBack();
     }
@@ -11,21 +14,6 @@ function SettingsCtrl($scope, $ionicHistory, database, localStorage) {
     database.getClasses().then(function (classes) {
         $scope.classes = classes;
     });
-
-    /* Define properties here */
-    defineProperty('allowPushNotifications');
-
-    function defineProperty(name) {
-    	Object.defineProperty($scope, name, {
-    		enumerable: true,
-    		configurable: true,
-    		get: function () {
-    			var val = localStorage.get(name);
-    			return JSON.parse(val);
-    		},
-    		set: function (val) {
-    			localStorage.set(name,val);
-    		}
-    	});
-    }
+    
+    settings.populateScope($scope);
 }

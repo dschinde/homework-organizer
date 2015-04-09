@@ -2,8 +2,7 @@
 
 var isObject = angular.isObject;
 
-var module = angular.module('hwo.ui');
-module.service('colors', ColorsService);
+angular.module('hwo.ui').service('colors', ColorsService);
 
 function ColorsService() {
     var colors = [

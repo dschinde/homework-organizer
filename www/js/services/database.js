@@ -1,8 +1,8 @@
 'use strict';
 
-var module = angular.module('hwo.data');
-module.constant('openDatabase', window.openDatabase);
-module.service('database', Database);
+angular.module('hwo.data')
+.constant('openDatabase', window.openDatabase)
+.service('database', Database);
 
 function Database($q, $ionicPlatform, openDatabase) {
     var dbName = 'hwo.db';

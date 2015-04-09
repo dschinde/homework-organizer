@@ -1,7 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo');
-module.controller('InsertClassCtrl', InsertClassCtrl);
+angular.module('hwo').controller('InsertClassCtrl', InsertClassCtrl);
 
 function InsertClassCtrl($scope, $ionicHistory, database) {
     $scope.submit = function (klass) {

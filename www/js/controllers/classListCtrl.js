@@ -1,7 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo');
-module.controller('ClassListCtrl', ClassListCtrl);
+angular.module('hwo').controller('ClassListCtrl', ClassListCtrl);
 
 function ClassListCtrl($scope, database) {
     database.getClasses().then(function (classes) {

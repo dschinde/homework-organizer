@@ -1,8 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo');
-module.controller('AssignmentListCtrl', AssignmentListCtrl);
-
+angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
 function AssignmentListCtrl($scope, database, klass) {
     // klass is resolved in the state config for assignmentList

@@ -1,7 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo.ui');
-module.directive('hwoStyleFor', StyleForDirective);
+angular.module('hwo.ui').directive('hwoStyleFor', StyleForDirective);
 
 function StyleForDirective(colors) {
     var isDefined = angular.isDefined;

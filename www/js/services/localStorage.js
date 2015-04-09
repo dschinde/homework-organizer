@@ -1,7 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo.data');
-module.service('localStorage', LocalStorage);
+angular.module('hwo.data').service('localStorage', LocalStorage);
 
 function LocalStorage() {
     var isObject = angular.isObject;

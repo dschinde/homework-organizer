@@ -1,7 +1,6 @@
 'use strict';
 
-var module = angular.module('hwo.ui');
-module.directive('hwoColorPicker', ColorPickerDirective);
+angular.module('hwo.ui').directive('hwoColorPicker', ColorPickerDirective);
 
 function ColorPickerDirective(colors) {
     return {
