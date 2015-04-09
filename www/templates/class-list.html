@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     <ion-content>
         <div class="list">
-            <a class="item" ui-sref="assignmentList({classId: klass.id, className: klass.name})" ng-repeat="klass in classes" ng-style="{ backgroundColor: klass.color, color: textColor(klass.color) }">
+            <a class="item" ui-sref="assignmentList({classId: klass.id, className: klass.name})" ng-repeat="klass in classes" hwo:style-for="klass">
                 {{klass.name}}
             </a>
         </div>
