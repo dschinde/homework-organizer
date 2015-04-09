@@ -47,8 +47,7 @@ gulp.task('templates', ['clean'], function () {
     return gulp.src('www/templates/*.html')
             .pipe(ngTemplates('templates.js', {
                root: 'templates',
-               module: 'hwo.templates',
-               standalone: true
+               module: 'hwo.ui'
             }))
             .pipe(gulp.dest('build/js'));
 });
