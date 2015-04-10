@@ -199,6 +199,7 @@ function Database($q, $ionicPlatform, DBConnection) {
                         
                         for (var i = 0; i < length; i++) {
                             var assignment = rows.item(i);
+                            console.log(assignment.name, new Date(assignment.dueDateTime), assignment.dueDateTime);
                             arr.push({
                                 id: assignment.id,
                                 name: assignment.name,
@@ -249,7 +250,7 @@ function Database($q, $ionicPlatform, DBConnection) {
             var orderSql = '';
             
             if (order.orderByDate) {
-                orderSql += ' ORDER BY dueDateTime DESC';
+                orderSql += ' ORDER BY dueDateTime ASC';
             }
             
             return orderSql;
@@ -266,7 +267,7 @@ function Database($q, $ionicPlatform, DBConnection) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('INSERT INTO Assignments(name, dueDateTime, completed, classId) VALUES (?, ?, 0, ?);',
-                    [ assignment.name, assignment.dueDateTime, assignment.classId ],
+                    [ assignment.name, assignment.dueDateTime.valueOf(), assignment.classId ],
                     function (tx, res) {
                         resolve(res);
                     },
@@ -309,7 +310,7 @@ function Database($q, $ionicPlatform, DBConnection) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET name=?, dueDateTime=?, completed=?, classId=? WHERE id = ?;',
-                    [ assignment.name, assignment.dueDateTime, !!assignment.completed, assignment.classId, assignment.id ],
+                    [ assignment.name, assignment.dueDateTime.valueOf(), !!assignment.completed, assignment.classId, assignment.id ],
                     function (tx, res) {
                         resolve(res);
                     },
