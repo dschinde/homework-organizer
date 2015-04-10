@@ -3,6 +3,9 @@
 angular.module('hwo')
 .controller('SettingsCtrl', SettingsCtrl)
 .config(function (settingsProvider) {
+    // Add settings here:
+    // settingsProvider.define(...);
+    
     settingsProvider.define('allowPushNotifications');
 });
 
