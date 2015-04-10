@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('hwo.data')
-.constant('openDatabase', window.openDatabase)
 .service('database', Database)
 .factory('DBConnection', DBConnection);
 
