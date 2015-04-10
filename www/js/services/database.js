@@ -2,9 +2,39 @@
 
 angular.module('hwo.data')
 .constant('openDatabase', window.openDatabase)
-.service('database', Database);
+.service('database', Database)
+.factory('DBConnection', DBConnection);
 
-function Database($q, $ionicPlatform, openDatabase) {
+function DBConnection($q, $window, $ionicPlatform) {
+    function Connection(options) {
+        var name = options.name,
+            version = options.version,
+            displayName = options.displayName,
+            size = options.size;
+            
+        var db;
+        
+        var ready = $ionicPlatform.ready(function () {
+            if ($window.sqlitePlugin) {
+                db = $window.sqlitePlugin.openDatabase(options);
+            } else {
+                db = $window.openDatabase(name, version, displayName, size);
+            }
+        });
+        
+        this.transaction = transaction;
+        
+        function transaction(fn) {
+            db.transaction(fn);
+        }
+    }
+    
+    return Connection;
+}
+
+
+
+function Database($q, $ionicPlatform, DBConnection) {
     var dbName = 'hwo.db';
     var db;
     
@@ -13,9 +43,13 @@ function Database($q, $ionicPlatform, openDatabase) {
     var isDefined = angular.isDefined;
     
     var ready = $ionicPlatform.ready(function () {
-        db = openDatabase(dbName, '1.0', 'Homework Organizer Database', 1024 * 1024);
+        db = new DBConnection({
+            name: dbName,
+            version: '1.0',
+            displayName: 'Homework Organizer Database',
+            size: 1024 * 1024
+        });
     }).then(function () {
-        deleteDatabase();
         createDatabase();
     }, function (e) {
         alert(e.message);
