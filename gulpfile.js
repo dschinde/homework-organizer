@@ -34,7 +34,7 @@ gulp.task('lib', ['clean'], function () {
 });
 
 gulp.task('scripts', ['clean'], function () {
-    return gulp.src('www/js/**/*.js')
+    return gulp.src(['www/js/**/*.js', '!www/js/templates.js'])
             .pipe(gulp.dest('build/js'));
 });
 
