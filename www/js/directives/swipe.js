@@ -7,12 +7,18 @@ function SwipeDirective($ionicGesture) {
         restrict: 'E',
         require: 'hwoSref',
         template: '',
+        scope: true,
         link: function (scope, element, attrs, sref) {
             var content = element.parent().find('ion-content'),
-                direction = attrs.hwoDirection;
+                direction = attrs.hwoDirection,
+                callback = sref.transition.bind(sref);
             var event = 'swipe' + direction;
             
-            $ionicGesture.on(event, function () { sref.transition(); }, element);
+            var gesture = $ionicGesture.on(event, callback, element);
+            
+            scope.$on('$destroy', function () {
+                $ionicGesture.off(gesture, event, callback);
+            });
         }
     };
 }
