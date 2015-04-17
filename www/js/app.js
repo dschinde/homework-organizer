@@ -1,7 +1,8 @@
 var isDefined = angular.isDefined;
 
 angular.module('hwo.data', ['ionic']);
-angular.module('hwo.ui', []);
+angular.module('hwo.ui', ['hwo.ui.util']);
+angular.module('hwo.ui.util', ['ionic']);
 
 angular.module('hwo', [
     'ionic',
