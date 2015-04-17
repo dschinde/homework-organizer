@@ -14,6 +14,16 @@ function SettingsCtrl($scope, $ionicHistory, database, settings) {
         $ionicHistory.goBack();
     }
     
+    $scope.editClass = function () {};
+    
+    $scope.deleteClass = function (klass) {
+        database.deleteClass(klass.id).then(function () {
+            return database.getClasses();
+        }).then(function (classes) {
+            $scope.classes = classes;
+        });
+    }
+    
     database.getClasses().then(function (classes) {
         $scope.classes = classes;
     });
