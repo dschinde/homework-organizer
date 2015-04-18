@@ -2,9 +2,10 @@
 
 angular.module('hwo').controller('TimelineCtrl', TimelineCtrl);
 
-function TimelineCtrl($scope, database) {
+function TimelineCtrl($scope, database, range) {
     var filter = {
-    
+        after: range.first,
+        before: range.last
     };
     
     $scope.setCompleted = function (assignment) {
