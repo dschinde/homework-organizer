@@ -49,28 +49,25 @@ function Database($q, $ionicPlatform, DBConnection) {
             size: 1024 * 1024
         });
     }).then(function () {
-        deleteDatabase();
         createDatabase();
     }, function (e) {
         alert(e.message);
     });
     
     
-    return {
-        createDatabase: createDatabase,
-        deleteDatabase: deleteDatabase,
-        
-        getClasses: getClasses,
-        insertClass: insertClass,
-        deleteClass: deleteClass,
-        updateClass: updateClass,
-        
-        getAssignments: getAssignments,
-        insertAssignment: insertAssignment,
-        deleteAssignment: deleteAssignment,
-        updateAssignment: updateAssignment,
-        setAssignmentCompleted: setAssignmentCompleted
-    };
+    this.createDatabase = createDatabase;
+    this.deleteDatabase = deleteDatabase;
+    
+    this.getClasses = getClasses;
+    this.insertClass = insertClass;
+    this.deleteClass = deleteClass;
+    this.updateClass = updateClass;
+    
+    this.getAssignments = getAssignments;
+    this.insertAssignment = insertAssignment;
+    this.deleteAssignment = deleteAssignment;
+    this.updateAssignment = updateAssignment;
+    this.setAssignmentCompleted = setAssignmentCompleted;
     
     
     /* Methods - Classes */
@@ -183,8 +180,10 @@ function Database($q, $ionicPlatform, DBConnection) {
         };
         var args = [];
         
-        filter = extend({}, filter, defaults.filter);
-        order = extend({}, order, defaults.order);
+        filter = extend({}, defaults.filter, filter);
+        order = extend({}, defaults.order, order);
+        
+        console.log(JSON.stringify(filter));
         
         sql += buildWhereSql();
         sql += buildOrderSql();
@@ -200,7 +199,6 @@ function Database($q, $ionicPlatform, DBConnection) {
                         
                         for (var i = 0; i < length; i++) {
                             var assignment = rows.item(i);
-                            console.log(assignment.name, new Date(assignment.dueDateTime), assignment.dueDateTime);
                             arr.push({
                                 id: assignment.id,
                                 name: assignment.name,
@@ -229,7 +227,7 @@ function Database($q, $ionicPlatform, DBConnection) {
             
             if (filter.excludeCompleted) {
                 whereSql += whereSql.length === 0 ? ' WHERE' : ' AND';
-                whereSql += ' completed = FALSE';
+                whereSql += ' completed = 0';
             }
             
             if (filter.before) {
