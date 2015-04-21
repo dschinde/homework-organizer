@@ -2,9 +2,9 @@
 
 angular.module('hwo').controller('InsertClassCtrl', InsertClassCtrl);
 
-function InsertClassCtrl($scope, $ionicHistory, database) {
+function InsertClassCtrl($scope, $ionicHistory, Class) {
     $scope.submit = function (klass) {
-        database.insertClass(klass).then(function () {
+        Class.insert(klass).then(function () {
             $ionicHistory.goBack();
         }, function (e) {
             alert(e.message);

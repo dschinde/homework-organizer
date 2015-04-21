@@ -2,29 +2,21 @@
 
 angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
-function AssignmentListCtrl($scope, database, klass) {
+function AssignmentListCtrl($scope, Assignment, klass) {
     // klass is resolved in the state config for assignmentList
     
-    var filter = { excludeCompleted: true };
+    var filter = { };
     
     if (klass) {
         $scope.klass = klass;
-        
         filter.classId = klass.id;
     }
     
-    database.getAssignments(filter).then(function (assignments) {
-        $scope.assignments = assignments;
+    Assignment.get(filter).then(function (assignments) {
         $scope.dateGroups = groupByDate(assignments);
     }, function (e) {
         alert(e.message);
     });
-    
-    $scope.setCompleted = function (assignment) {
-        database.setAssignmentCompleted(assignment.id, assignment.completed);
-    };
-    
-    
     
     
     function groupByDate(assignments) {

@@ -3,10 +3,19 @@
         <a class="button button-icon icon ion-navicon" ui-sref="settings"></a>
     </ion-nav-buttons>
     <ion-content>
-        <div class="list">
-            <a class="item" ui-sref="assignmentList({classId: klass.id, className: klass.name})" ng-repeat="klass in classes" hwo:style-for="klass">
-                {{klass.name}}
-            </a>
-        </div>
+        <ion-list>
+            <ion-item   ng-repeat="klass in classes" 
+                        hwo:style-for="klass"
+                        ui-sref="assignments({ classId: klass.id })">
+                <h2>{{klass.name}}</h2>
+                
+                <p ng-repeat="assignment in klass.assignments">
+                    {{assignment.name}}
+                </p>
+            </ion-item>
+            <ion-item ui-sref="assignments({ classId: '' })">
+                <h2>All</h2>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>

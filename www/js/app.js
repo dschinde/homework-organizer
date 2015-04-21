@@ -26,31 +26,32 @@ angular.module('hwo', [
         controller: 'InsertClassCtrl'
     })
     
-    .state('assignmentList', {
-        url: '/assignmentList?classId&className',
+    .state('assignments', {
+        url: '/assignments?classId',
         templateUrl: 'templates/assignment-list.html',
         resolve: {
-            klass: function ($stateParams) {
-                if (!isDefined($stateParams.classId)) {
+            klass: function ($stateParams, Class) {
+                if (!$stateParams.classId) {
                     return null;
+                } else {
+                    return Class.get($stateParams.classId);
                 }
-                
-                return { id: $stateParams.classId, name: $stateParams.className };
             }
         },
         controller: 'AssignmentListCtrl',
         cache: false
     })
+    
     .state('insertAssignment', {
         url: '/insertAssignment?classId&className',
         templateUrl: 'templates/insert-assignment.html',
         resolve: {
-            klass: function ($stateParams) {
-                if (!isDefined($stateParams.classId)) {
+            klass: function ($stateParams, Class) {
+                if (!$stateParams.classId) {
                     return null;
+                } else {
+                    return Class.get($stateParams.classId);
                 }
-                
-                return { id: $stateParams.classId, name: $stateParams.className };
             }
         },
         controller: 'InsertAssignmentCtrl'

@@ -2,7 +2,7 @@
 
 angular.module('hwo').controller('InsertAssignmentCtrl', InsertAssignmentCtrl);
 
-function InsertAssignmentCtrl($scope, $ionicHistory, database, klass) {
+function InsertAssignmentCtrl($scope, $ionicHistory, Assignment, Class, klass) {
     // klass is resolved in the state config for assignmentList
     $scope.assignment = {};
     
@@ -10,12 +10,12 @@ function InsertAssignmentCtrl($scope, $ionicHistory, database, klass) {
         $scope.assignment.classId = klass.id;
     }
     
-    database.getClasses().then(function (classes) {
+    Class.get().then(function (classes) {
         $scope.classes = classes;
     });
     
     $scope.submit = function (assignment) {
-        database.insertAssignment(assignment).then(function () {
+        Assignment.insert(assignment).then(function () {
             $ionicHistory.goBack();
         }, function (e) {
             alert(e.message);

@@ -1,9 +1,9 @@
-<ion-view view-title="Assignments">
+<ion-view view-title="{{ klass.name || 'All' }}">
     <ion-nav-buttons side="primary">
         <a class="button button-clear button-positive" ui-sref="classList">Classes</a>
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
-        <a class="button button-icon icon ion-plus" ui-sref="insertAssignment({classId: klass.id, className: klass.name})"></a>
+        <a class="button button-icon icon ion-plus" ui-sref="insertAssignment({classId: klass.id})"></a>
     </ion-nav-buttons>
     <ion-content>
         <div class="list">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments">
                     <label class="checkbox">
-                        <input type="checkbox" ng-model="assignment.completed" ng-change="setCompleted(assignment)"/>
+                        <input type="checkbox" ng-model="assignment.completed"/>
                     </label>
                     {{ assignment.name }}
                 </div>
