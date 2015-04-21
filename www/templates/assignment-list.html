@@ -11,7 +11,13 @@
                 <div class="item item-divider">
                     {{ dateGroup.date | date : 'fullDate' }}
                 </div>
-                <div class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments">
+                <div ng-if="klass" class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="assignment.completed"/>
+                    </label>
+                    {{ assignment.name }}
+                </div>
+                <div ng-if="!klass" class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments" hwo:style-for="assignment">
                     <label class="checkbox">
                         <input type="checkbox" ng-model="assignment.completed"/>
                     </label>

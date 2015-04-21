@@ -2,7 +2,7 @@
 
 angular.module('hwo.ui').directive('hwoStyleFor', StyleForDirective);
 
-function StyleForDirective(colors) {
+function StyleForDirective(colors, Assignment, Class) {
     var isDefined = angular.isDefined;
     var isObject = angular.isObject;
 
@@ -16,14 +16,21 @@ function StyleForDirective(colors) {
             
             function setStyle(value) {
                 if (isDefined(value)) {
-                    if (!isObject(value)) {
+                    if (value instanceof Assignment) {
+                        Class.get(value.classId).then(function (klass) {
+                            styleSetter({
+                                'backgroundColor': klass.color,
+                                'color': colors.getTextColor(klass.color)
+                            });
+                        });
+                    } else if (value instanceof Class) {
+                        styleSetter({
+                            'backgroundColor': value.color,
+                            'color': colors.getTextColor(value.color)
+                        });
+                    } else {
                         throw Error("The parameter to the hwoStyleFor directive must be an object.");
                     }
-                    
-                    styleSetter({
-                        'backgroundColor': value.color,
-                        'color': colors.getTextColor(value.color)
-                    });
                 }
             }
         }
