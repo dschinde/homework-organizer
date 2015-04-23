@@ -1,1 +1,43 @@
-/* Empty. Add your own CSS if you like */
+/* Flex */
+
+.scroll {
+    height: 100%;
+}
+
+.flex .list {
+    height: 100% !important;
+    
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    
+    -webkit-flex-direction: column !important;
+    flex-direction: column !important;
+}
+
+.flex .flex-item {
+    -webkit-flex: 0 1 50% !important;
+    flex: 0 1 50% !important;
+}
+
+.flex .flex-item.flex-item-large {
+    max-height: 22%;
+}
+
+.flex .flex-item.flex-item-small {
+    max-height: 8%;
+}
+
+/* Color Picker */
+
+hwo-color-picker .col {
+    border: 2px solid white;
+    margin: 4%;
+    padding: 4%;
+    opacity: .75;
+}
+
+hwo-color-picker .col.active {
+    opacity: 1;
+    border-color: black;
+}
