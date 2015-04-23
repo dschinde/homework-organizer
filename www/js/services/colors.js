@@ -22,49 +22,13 @@ function ColorsService() {
         { hex: '#53FF1A' },
         { hex: '#C6FF1A' },
         { hex: '#FFC61A' },
-        { hex: '#FFFFFF' }
+        //{ hex: '#FFFFFF' }
     ];
     
-    var length = colors.length;
-    
-    return {
-        getIterator: Iterator,
-        getTextColor: getTextColor
-    };
-    
-    function Iterator() {
-        var index = 0;
-        
-        return {
-            next: next,
-            previous: previous,
-            current: current
-        };
-        
-        function next() {
-            index++;
-            if (index === length) {
-                index = 0;
-            }
-            return current();
-        }
-        
-        function previous() {
-            index--;
-            if (index === -1) {
-                index = length - 1;
-            }
-            return current();
-        }
-        
-        function current() {
-            return colors[index];
-        }
-    }
-
-    function getTextColor(value) {
+    colors.getTextColor = function (value) {
+        var length = this.length;
         for (var i = 0; i < length; i++) {
-            var color = colors[i];
+            var color = this[i];
             if ((color.name === value) || (color.hex && (color.hex === value))) {
                 return color.text || 'black';
             }
@@ -72,4 +36,6 @@ function ColorsService() {
         
         return 'black';
     }
+    
+    return colors;
 }

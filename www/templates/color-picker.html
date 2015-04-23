@@ -1,5 +1,8 @@
-<div class="button-bar" ng-style="{ backgroundColor: color.hex || color.name, color: color.text || 'black' }">
-    <a class="button button-icon icon ion-ios-arrow-left" ng-click="previous()"></a>
-    <div class="title">Please pick a color!</div>
-    <a class="button button-icon icon ion-ios-arrow-right" ng-click="next()"></a>
+<div class="row" ng-repeat="group in groups">
+    <div    class="col" 
+            ng-repeat="color in ::group" 
+            ng-style="::{ 'background-color': color.hex || color.name, color: color.text }"
+            ng-click="select($event, color)">
+        A
+    </div>
 </div>
