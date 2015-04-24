@@ -75,7 +75,7 @@ function Database($q, $ionicPlatform, DBConnection) {
     function getClasses() {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('SELECT id, name, color FROM Classes;',
+                tx.executeSql('SELECT id, name, color, idx FROM Classes ORDER BY idx ASC;',
                     [],
                     function (tx, res) {
                         var arr = rowsToArray(res.rows);
@@ -92,12 +92,14 @@ function Database($q, $ionicPlatform, DBConnection) {
     /**
      * @param {Object} klass
      * @param {string} klass.name
+     * @param {string} klass.color
+     * @param {number} klass.idx
      */
     function insertClass(klass) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('INSERT INTO Classes(name, color) VALUES (?, ?);',
-                    [ klass.name, klass.color ],
+                tx.executeSql('INSERT INTO Classes(name, color, idx) VALUES (?, ?, ?);',
+                    [ klass.name, klass.color, klass.idx ],
                     function (tx, res) {
                         resolve(res);
                     },
@@ -144,8 +146,8 @@ function Database($q, $ionicPlatform, DBConnection) {
     function updateClass(klass) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
-                tx.executeSql('UPDATE Classes SET name = ?, color = ? WHERE id = ?;',
-                    [ klass.name, klass.color, klass.id ],
+                tx.executeSql('UPDATE Classes SET name = ?, color = ?, idx = ? WHERE id = ?;',
+                    [ klass.name, klass.color, klass.idx, klass.id ],
                     function (tx, res) {
                         resolve(res);
                     },
@@ -165,6 +167,7 @@ function Database($q, $ionicPlatform, DBConnection) {
      * @param {boolean} [filter.excludeCompleted=false] - Whether to exclude complete assignments
      * @param {Date} [filter.before] - Only assignments due before the given date and time will be returned.
      * @param {Date} [filter.after] - Only assignments due after the given date and time will be returned.
+     * @param {number} [filter.limit] - Only returns up to the given number of assignments
      * @param {Object} [order] - Determines the order of the results
      * @param {boolean} [order.orderByDate=true] - Orders the resulting assignments by due date and time.
      */
@@ -183,10 +186,7 @@ function Database($q, $ionicPlatform, DBConnection) {
         filter = extend({}, defaults.filter, filter);
         order = extend({}, defaults.order, order);
         
-        console.log(JSON.stringify(filter));
-        
         sql += buildWhereSql();
-        sql += buildOrderSql();
         sql += ';';
         
         return promise(function (resolve, reject) {
@@ -242,17 +242,16 @@ function Database($q, $ionicPlatform, DBConnection) {
                 args.push(filter.after.valueOf());
             }
             
-            return whereSql;
-        }
-    
-        function buildOrderSql() {
-            var orderSql = '';
-            
             if (order.orderByDate) {
-                orderSql += ' ORDER BY dueDateTime ASC';
+                whereSql += ' ORDER BY dueDateTime ASC';
             }
             
-            return orderSql;
+            if (filter.limit) {
+                whereSql += ' LIMIT ?';
+                args.push(filter.limit);
+            }
+            
+            return whereSql;
         }
     }
     
@@ -349,7 +348,7 @@ function Database($q, $ionicPlatform, DBConnection) {
     
     function createDatabase() {
         db.transaction(function (tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS Classes(id INTEGER UNIQUE PRIMARY KEY, name TEXT, color TEXT);');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS Classes(id INTEGER UNIQUE PRIMARY KEY, name TEXT, color TEXT, idx INTEGER);');
                 
             tx.executeSql('CREATE TABLE IF NOT EXISTS Assignments(id INTEGER UNIQUE PRIMARY KEY, name TEXT, dueDateTime DATE, completed BOOLEAN, classId INTEGER REFERENCES Classes);');
             

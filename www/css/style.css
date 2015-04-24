@@ -21,11 +21,12 @@
 }
 
 .flex .flex-item.flex-item-large {
-    max-height: 22%;
+    max-height: 25%;
 }
 
-.flex .flex-item.flex-item-small {
-    max-height: 8%;
+.flex .center {
+    -webkit-justify-content: center;
+    justify-content: center;
 }
 
 /* Color Picker */

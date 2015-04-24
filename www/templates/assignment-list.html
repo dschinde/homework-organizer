@@ -1,4 +1,12 @@
-<ion-view view-title="{{ klass.name || 'All' }}">
+<ion-view>
+    <ion-nav-title>
+        <a ui-sref="classList">
+            <h1 class="title positive">
+                {{ klass.name || 'All' }}
+                <i class="icon ion-arrow-down-b"></i>
+            </h1>
+        </a>
+    </ion-nav-title>
     <ion-nav-buttons side="primary">
         <a class="button button-clear button-positive" ui-sref="classList">Classes</a>
     </ion-nav-buttons>

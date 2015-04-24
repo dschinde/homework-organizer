@@ -37,6 +37,7 @@ function Assignment(database) {
             database.setAssignmentCompleted(this.__obj.id, val);
         },
         set classId(val) {
+            this.__class = undefined;
             this.__obj.classId = val;
             database.updateAssignment(this.__obj);
         },
@@ -66,7 +67,8 @@ function Class(database) {
         this.__obj = {
             id: klass.id,
             name: klass.name,
-            color: klass.color
+            color: klass.color,
+            idx: klass.idx
         };
     }
     
@@ -76,6 +78,7 @@ function Class(database) {
         get id() { return this.__obj.id; },
         get name() { return this.__obj.name; },
         get color() { return this.__obj.color; },
+        get index() { return this.__obj.idx; },
         
         set name(val) {
             this.__obj.name = val;
@@ -83,6 +86,10 @@ function Class(database) {
         },
         set color(val) {
             this.__obj.color = val;
+            database.updateClass(this.__obj);
+        },
+        set index(val) {
+            this.__obj.idx = val;
             database.updateClass(this.__obj);
         },
         
@@ -111,7 +118,11 @@ function Class(database) {
     };
     
     Class.insert = function (klass) {
-        return database.insertClass(klass);
+        return database.getClasses().then(function (classes) {
+            klass.idx = classes.length;
+            console.log('Class.insert', 'klass.idx: ' + klass.idx);
+            return database.insertClass(klass);
+        });
     };
 
     return Class;
