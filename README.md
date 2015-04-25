@@ -34,3 +34,4 @@ A homework organizer for mobile devices
 * 9.on the edit screen(mode) go back to the picking color page by clicking on the class.
 * 10.flashing screen 
 * 11.More User experience
+* 12.make the input invalide if user doesnt input anything in add class or add assignment
