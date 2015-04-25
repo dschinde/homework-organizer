@@ -36,3 +36,4 @@ A homework organizer for mobile devices
 * 11.More User experience
 * 12.make the input invalide if user doesnt input anything in add class or add assignment
 * 13.classes with the same name should not be allowed
+* 14.allow user to swipe left to delete or edit assignments
