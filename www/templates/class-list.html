@@ -1,6 +1,6 @@
 <ion-view view-title="Classes">
     <ion-nav-buttons side="primary">
-        <button class="button button-clear button-positive" ng-click="toggleEditing()">Edit</button>
+        <button class="button button-clear button-positive" ng-click="toggleEditing()">{{editing? 'Done':'Edit'}}</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
         <a class="button button-icon icon ion-plus" ui-sref="insertClass"></a>
