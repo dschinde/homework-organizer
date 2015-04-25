@@ -7,7 +7,7 @@ function InsertClassCtrl($scope, $ionicHistory, Class) {
         Class.insert(klass).then(function () {
             $ionicHistory.goBack();
         }, function (e) {
-            alert(e.message);
+            alert("you need to insert class name");
         });
     };
     
