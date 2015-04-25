@@ -4,12 +4,12 @@ A homework organizer for mobile devices
 # Git
 
 ## Getting changes
-	git pull
+	$ git pull
 
 ## Pushing changes
-	git add .
-	git commit -m "msg"
-	git push origin master
+	$ git add .
+	$ git commit -m "msg"
+	$ git push origin master
 
 
 # Ionic View
@@ -17,4 +17,6 @@ A homework organizer for mobile devices
 
 * Create an Ionic View account
 
-* Upload your app by using `ionic upload` in your app directory
+## Uploading your app
+    $ gulp sass     # if any sass changes have been made
+    $ ionic upload
