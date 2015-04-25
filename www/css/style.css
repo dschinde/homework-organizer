@@ -1,44 +1,28 @@
-/* Flex */
-
 .scroll {
-    height: 100%;
-}
+  height: 100%; }
 
 .flex .list {
-    height: 100% !important;
-    
-    display: -webkit-box !important;
-    display: -webkit-flex !important;
-    display: flex !important;
-    
-    -webkit-flex-direction: column !important;
-    flex-direction: column !important;
-}
-
+  height: 100% !important;
+  display: -webkit-box !important;
+  display: -webkit-flex !important;
+  display: flex !important;
+  -webkit-flex-direction: column !important;
+  -ms-flex-direction: column !important;
+  flex-direction: column !important; }
 .flex .flex-item {
-    -webkit-flex: 0 1 50% !important;
-    flex: 0 1 50% !important;
-}
-
-.flex .flex-item.flex-item-large {
-    max-height: 25%;
-}
-
+  -webkit-flex: 0 1 50% !important;
+  -ms-flex: 0 1 50% !important;
+  flex: 0 1 50% !important; }
+  .flex .flex-item.flex-item-large {
+    max-height: 25%; }
 .flex .center {
-    -webkit-justify-content: center;
-    justify-content: center;
-}
-
-/* Color Picker */
+  -webkit-justify-content: center;
+  justify-content: center; }
 
 hwo-color-picker .col {
-    border: 2px solid white;
-    margin: 4%;
-    padding: 4%;
-    opacity: .75;
-}
-
+  margin: 2%;
+  padding: 4%;
+  opacity: 0.75; }
 hwo-color-picker .col.active {
-    opacity: 1;
-    border-color: black;
-}
+  opacity: 1;
+  outline: thick solid black; }

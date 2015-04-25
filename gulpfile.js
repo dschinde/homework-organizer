@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
 
+
 var ngTemplates = require('gulp-angular-templatecache');
 var open = require('gulp-open');
 
@@ -23,7 +24,7 @@ gulp.task('img', ['clean'], function () {
             .pipe(gulp.dest('build/img'));
 });
 
-gulp.task('css', ['clean'], function () {
+gulp.task('css', ['clean', 'sass'], function () {
     return gulp.src('www/css/*.css')
             .pipe(gulp.dest('build/css'));
 });
@@ -73,3 +74,13 @@ function run() {
     return gulp.src('build/index.html')
             .pipe(open('build/index.html', options));
 }
+
+/* Sass tasks */
+
+var sass = require('gulp-sass');
+
+gulp.task('sass', function () {
+    gulp.src(['./scss/**/*.scss', '!./scss/ionic.app.scss'])
+        .pipe(sass())
+        .pipe(gulp.dest('./www/css'));
+});

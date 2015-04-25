@@ -1,0 +1,13 @@
+
+hwo-color-picker {
+	.col {
+		margin: 2%;
+		padding: 4%;
+		opacity: .75;
+	}
+
+	.col.active {
+		opacity: 1;
+		outline: thick solid black;
+	}
+}
