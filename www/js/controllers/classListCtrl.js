@@ -3,7 +3,7 @@
 angular.module('hwo').controller('ClassListCtrl', ClassListCtrl);
 
 function ClassListCtrl($scope, $state, Class, Assignment) {
-    var filter = {};
+    //var filter = { excludeCompleted: true };
     
     Class.get().then(function (classes) {
         $scope.classes = classes;
@@ -11,7 +11,8 @@ function ClassListCtrl($scope, $state, Class, Assignment) {
         classes.map(function (klass) {
             return Assignment.get({
                 classId: klass.id,
-                limit: 3
+                limit: 3,
+                excludeCompleted: true
             }).then(function (assignments) {
                 klass.assignments = assignments;
             });
