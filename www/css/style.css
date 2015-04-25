@@ -26,3 +26,6 @@ hwo-color-picker .col {
 hwo-color-picker .col.active {
   opacity: 1;
   outline: thick solid black; }
+
+.item-checkbox {
+  white-space: normal; }
