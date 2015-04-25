@@ -23,14 +23,12 @@ function StyleForDirective(colors, Assignment, Class) {
                                 'color': colors.getTextColor(klass.color)
                             });
                         });
-                    } else if (value instanceof Class) {
-                        styleSetter({
-                            'backgroundColor': value.color,
-                            'color': colors.getTextColor(value.color)
-                        });
                     } else {
-                        throw Error("The parameter to the hwoStyleFor directive must be an object.");
-                    }
+                        styleSetter({
+                            'backgroundColor': value,
+                            'color': colors.getTextColor(value)
+                         });
+                    } 
                 }
             }
         }

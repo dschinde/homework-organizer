@@ -10,7 +10,7 @@
                     show-delete="editing"
                     show-reorder="editing">
             <ion-item   ng-repeat="klass in classes" 
-                        hwo:style-for="klass"
+                        hwo:style-for="klass.color"
                         ng-click="editing ? edit(klass) : assignments(klass)"
                         class="flex-item flex-item-large">
                 <h2>{{klass.name}}</h2>
