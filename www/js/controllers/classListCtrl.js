@@ -22,17 +22,32 @@ function ClassListCtrl($scope, $state, Class, Assignment) {
     });
     
     $scope.assignments = assignments;
-    $scope.toggleEditing = toggleEditing;
+    $scope.delete = deleteClass;
+    $scope.edit = edit;
     $scope.move = move;
-    $scope.delete = deleteClass; 
+    $scope.toggleEditing = toggleEditing;
+    
+     
     
     
     function assignments(klass) {
         $state.go('assignments', { classId: klass.id });
     }
     
-    function toggleEditing() {
-        $scope.editing = !$scope.editing;
+    function deleteClass(klass) {
+        var classes = $scope.classes;
+        var length = classes.length;
+        for (var i = klass.index + 1; i < length; i++) {
+            var other = classes[i];
+            other.index--;
+        }
+        
+        klass.delete();
+        classes.splice(klass.index, 1);
+    }
+    
+    function edit(klass) {
+        $state.go('editClass', { id: klass.id });
     }
     
     function move(klass, fromIndex, toIndex) {
@@ -57,15 +72,7 @@ function ClassListCtrl($scope, $state, Class, Assignment) {
         }
     }
     
-    function deleteClass(klass) {
-        var classes = $scope.classes;
-        var length = classes.length;
-        for (var i = klass.index + 1; i < length; i++) {
-            var other = classes[i];
-            other.index--;
-        }
-        
-        klass.delete();
-        classes.splice(klass.index, 1);
+    function toggleEditing() {
+        $scope.editing = !$scope.editing;
     }
 }

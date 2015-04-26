@@ -95,6 +95,23 @@ function Class(database) {
         
         delete: function () {
             return database.deleteClass(this.__obj.id);
+        },
+        
+        edit: function () {
+            var klass = this;
+            
+            return {
+                editing: true,
+                name: klass.name,
+                color: klass.color,
+                index: klass.index,
+                save: function () {
+                    klass.__obj.name = this.name;
+                    klass.__obj.color = this.color;
+                    klass.__obj.idx = this.index;
+                    return database.updateClass(klass.__obj);
+                }
+            };
         }
     };
     

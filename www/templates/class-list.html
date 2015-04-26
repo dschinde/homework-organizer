@@ -12,7 +12,8 @@
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass"
                         ng-click="editing ? edit(klass) : assignments(klass)"
-                        class="flex-item flex-item-large">
+                        class="flex-item flex-item-large"
+                        style="pointer-events:auto;">
                 <h2>{{klass.name}}</h2>
                 
                 <p ng-repeat="assignment in klass.assignments">

@@ -22,20 +22,21 @@ function ColorsService() {
         { hex: '#53FF1A' },
         { hex: '#C6FF1A' },
         { hex: '#FFC61A' },
-        //{ hex: '#FFFFFF' }
     ];
     
-    colors.getTextColor = function (value) {
-        var length = this.length;
-        for (var i = 0; i < length; i++) {
-            var color = this[i];
-            if ((color.name === value) || (color.hex && (color.hex === value))) {
-                return color.text || 'black';
-            }
-        }
-        
-        return 'black';
+    for (var i = 0; i < colors.length; i++) {
+        var color = colors[i];
+        color.key = color.name || color.hex;
+        this[color.key] = color;
     }
     
-    return colors;
+    this.getTextColor = function (value) {
+        return this[value].text || 'black';
+    };
+    
+    this.length = colors.length;
+    
+    this.values = function () {
+        return colors;
+    };
 }

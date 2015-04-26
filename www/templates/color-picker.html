@@ -2,7 +2,8 @@
     <div    class="col" 
             ng-repeat="color in ::group" 
             ng-style="::{ 'background-color': color.hex || color.name, color: color.text }"
-            ng-click="select($event, color)">
+            ng-click="select($event, color)"
+            hwo:color="::color.key">
         A
     </div>
 </div>
