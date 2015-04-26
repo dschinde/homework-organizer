@@ -1,6 +1,6 @@
 <ion-view view-title="Classes">
     <ion-nav-buttons side="primary">
-        <button class="button button-clear button-positive" ng-click="toggleEditing()">Edit</button>
+        <button class="button button-clear button-positive" ng-click="toggleEditing()">{{editing? 'Done':'Edit'}}</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
         <a class="button button-icon icon ion-plus" ui-sref="insertClass"></a>
@@ -10,12 +10,11 @@
                     show-delete="editing"
                     show-reorder="editing">
             <ion-item   ng-repeat="klass in classes" 
-                        hwo:style-for="klass"
+                        hwo:style-for="klass.color"
                         ng-click="editing ? edit(klass) : assignments(klass)"
                         class="flex-item flex-item-large"
                         style="pointer-events:auto;">
                 <h2>{{klass.name}}</h2>
-                
                 <p ng-repeat="assignment in klass.assignments">
                     {{assignment.name}}
                 </p>

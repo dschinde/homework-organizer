@@ -3,14 +3,14 @@
         <button class="button button-clear button-positive" ng-click="cancel()">Cancel</button>
     </ion-nav-buttons>
     <ion-content class="padding">
-        <form name="form">
+        <form name="insertClass">
             <label class="item item-input">
-                <input type="text" hwo:class-name-is-unique placeholder="Class Name" ng-model="klass.name" />
+                <input type="text" placeholder="Class Name" ng-model="klass.name" ng-required = "true"/>
             </label>
             <div class="item">
-                <hwo-color-picker ng-model="klass.color"></hwo-color-picker>
+                <hwo-color-picker ng-model="klass.color"></hwo-color-picker ng-required = "true">
             </div>
-            <button class="button button-block button-positive" ng-click="submit(klass)">{{ form.$invalid ? 'Error' : 'Submit' }}</button>
+            <button class="button button-block" hwo:style-for="klass.color" ng-click="submit(klass)" ng-disabled="insertClass.$pristine && insertClass.$invalid">Create a Class</button>
         </form>
     </ion-content>
 </ion-view>
