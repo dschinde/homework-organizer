@@ -6,22 +6,22 @@ angular.module('hwo.ui').service('colors', ColorsService);
 
 function ColorsService() {
     var colors = [
-        { hex: '#1A53FF', text: 'white' },
-        { hex: '#531AFF', text: 'white' },
-        { hex: '#C61AFF' },
-        { hex: '#FF1AC6' },
-        { hex: '#1AC6FF' },
-        { hex: '#5781FF' },
-        { hex: '#94AFFF' },
-        { hex: '#FF1A53', text: 'white' },
-        { hex: '#1AFFC6' },
-        { hex: '#FFE494' },
-        { hex: '#FFD557' },
-        { hex: '#FF531A', text: 'white' },
-        { hex: '#1AFF53' },
-        { hex: '#53FF1A' },
-        { hex: '#C6FF1A' },
-        { hex: '#FFC61A' },
+        { hex: '#F44336', text: 'white' },
+        { hex: '#E91E63', text: 'white' },
+        { hex: '#9C27B0', text: 'grey' },
+        { hex: '#673AB7', text: 'grey' },
+        { hex: '#3F51B5', text: 'grey' },
+        { hex: '#2196F3', text: 'white' },
+        { hex: '#03A9F4' },
+        { hex: '#00BCD4' },
+        { hex: '#009688', text: 'white' },
+        { hex: '#4CAF50' },
+        { hex: '#8BC34A' },
+        { hex: '#CDDC39' },
+        { hex: '#FFEB3B' },
+        { hex: '#FF5722', text: 'white' },
+        { hex: '#795548', text: 'grey' },
+        { hex: '#607D8B' },
     ];
     
     for (var i = 0; i < colors.length; i++) {
