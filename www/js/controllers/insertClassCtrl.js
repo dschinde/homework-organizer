@@ -15,8 +15,3 @@ function InsertClassCtrl($scope, $ionicHistory, Class) {
         $ionicHistory.goBack();
     };
 }
-
-function ValidateClassName(Class, ProposedClassName) {
-    // TODO: Check the database if there is already a klass under this name
-    if (Class.)
-}

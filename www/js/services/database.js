@@ -31,8 +31,6 @@ function DBConnection($q, $window, $ionicPlatform) {
     return Connection;
 }
 
-
-
 function Database($q, $ionicPlatform, DBConnection) {
     var dbName = 'hwo.db';
     var db;
