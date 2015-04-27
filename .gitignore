@@ -6,3 +6,4 @@ platforms/
 plugins/
 build/
 ionic.project
+*.log
