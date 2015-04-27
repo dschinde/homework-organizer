@@ -8,9 +8,9 @@ function ColorsService() {
     var colors = [
         { hex: '#F44336', text: 'white' },
         { hex: '#E91E63', text: 'white' },
-        { hex: '#9C27B0', text: 'grey' },
-        { hex: '#673AB7', text: 'grey' },
-        { hex: '#3F51B5', text: 'grey' },
+        { hex: '#9C27B0', text: '#F0F0F0' },
+        { hex: '#673AB7', text: '#F0F0F0' },
+        { hex: '#3F51B5', text: '#F0F0F0' },
         { hex: '#2196F3', text: 'white' },
         { hex: '#03A9F4' },
         { hex: '#00BCD4' },
@@ -20,7 +20,7 @@ function ColorsService() {
         { hex: '#CDDC39' },
         { hex: '#FFEB3B' },
         { hex: '#FF5722', text: 'white' },
-        { hex: '#795548', text: 'grey' },
+        { hex: '#795548', text: '#F0F0F0' },
         { hex: '#607D8B' },
     ];
     
