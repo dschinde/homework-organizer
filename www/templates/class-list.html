@@ -14,7 +14,7 @@
                         ng-click="editing ? edit(klass) : assignments(klass)"
                         class="flex-item flex-item-large"
                         style="pointer-events:auto;">
-                <h2 style="color: inherit">{{klass.name}}</h2>
+                <h2>{{klass.name}}</h2>
                 <p ng-repeat="assignment in klass.assignments">
                     {{assignment.name}}
                 </p>
