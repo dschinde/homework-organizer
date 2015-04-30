@@ -19,3 +19,8 @@
     -ms-flex-direction: $direction !important;
     flex-direction: $direction !important;
 }
+
+@mixin inherit-colors {
+    background-color: inherit !important;
+    color: inherit !important;
+}

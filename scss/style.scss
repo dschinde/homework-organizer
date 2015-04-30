@@ -3,9 +3,13 @@
 		"color-picker";
 
 .item-checkbox {
-	white-space:normal;
+	white-space: normal;
 }
 
-
-		
-
+.item-content {
+    @include inherit-colors;
+    
+    h2 {
+        @include inherit-colors;
+    }
+}

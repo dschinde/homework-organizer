@@ -18,13 +18,13 @@ function StyleForDirective(colors, Assignment, Class) {
                 if (isDefined(value)) {
                     if (value instanceof Assignment) {
                         Class.get(value.classId).then(function (klass) {
-                            styleSetter({
+                            $element.css({
                                 'backgroundColor': klass.color,
                                 'color': colors.getTextColor(klass.color)
                             });
                         });
                     } else {
-                        styleSetter({
+                        $element.css({
                             'backgroundColor': value,
                             'color': colors.getTextColor(value)
                          });

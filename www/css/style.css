@@ -29,3 +29,10 @@ hwo-color-picker .col.active {
 
 .item-checkbox {
   white-space: normal; }
+
+.item-content {
+  background-color: inherit !important;
+  color: inherit !important; }
+  .item-content h2 {
+    background-color: inherit !important;
+    color: inherit !important; }
