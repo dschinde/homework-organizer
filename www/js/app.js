@@ -55,7 +55,7 @@ angular.module('hwo', [
     })
     
     .state('insertAssignment', {
-        url: '/insertAssignment?classId&className',
+        url: '/insertAssignment?classId',
         templateUrl: 'templates/insert-assignment.html',
         resolve: {
             klass: function ($stateParams, Class) {
