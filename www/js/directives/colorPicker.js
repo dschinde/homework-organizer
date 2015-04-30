@@ -44,7 +44,7 @@ function ColorPickerDirective(colors) {
             
             function render() {
                 var active = children[ngModel.$modelValue];
-                $scope.activate(active);
+                if (active) $scope.activate(active);
             }
         },
         link: function link($scope, $element, $attrs, ngModel) {
