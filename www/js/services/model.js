@@ -62,7 +62,11 @@ function Assignment(database) {
     return Assignment;
 }
 
-function Class(database) {
+function Class($q, database) {
+    var changed = true,
+        map,
+        promise;
+
     function Class(klass) {
         this.__obj = {
             id: klass.id,
@@ -82,19 +86,19 @@ function Class(database) {
         
         set name(val) {
             this.__obj.name = val;
-            database.updateClass(this.__obj);
+            update(this.__obj);
         },
         set color(val) {
             this.__obj.color = val;
-            database.updateClass(this.__obj);
+            update(this.__obj);
         },
         set index(val) {
             this.__obj.idx = val;
-            database.updateClass(this.__obj);
+            update(this.__obj);
         },
         
         delete: function () {
-            return database.deleteClass(this.__obj.id);
+            return database.deleteClass(this.__obj.id).then(setChanged);
         },
         
         edit: function () {
@@ -109,38 +113,49 @@ function Class(database) {
                     klass.__obj.name = this.name;
                     klass.__obj.color = this.color;
                     klass.__obj.idx = this.index;
-                    return database.updateClass(klass.__obj);
+                    return update(klass.__obj);
                 }
             };
         }
     };
     
     Class.get = function (id) {
-        if (id) {
-            return database.getClasses().then(function (classes) {
-                var length = classes.length;
-                for (var i = 0; i < length; i++) {
-                    if (classes[i].id == id) {
-                        return new Class(classes[i]);
-                    }
-                }
-            });
-        } else {
-            return database.getClasses().then(function (classes) {
-                return classes.map(function (klass) { 
+        if (changed) {
+            database.getClasses().then(function (classes) {
+                return classes.map(function (klass) {
                     return new Class(klass);
                 });
+            }).then(function (classes) {
+                promise = $q.when(classes);
+                
+                map = classes.reduce(function (prev, klass) {
+                    prev[klass.id] = klass;
+                    return prev;
+                }, {});
+                
+                changed = false;
             });
+        }
+        
+        if (id) {
+            return $q.when(map[id]);
+        } else {
+            return promise;
         }
     };
     
     Class.insert = function (klass) {
-        return database.getClasses().then(function (classes) {
+        return Class.get().then(function (classes) {
             klass.idx = classes.length;
-            console.log('Class.insert', 'klass.idx: ' + klass.idx);
-            return database.insertClass(klass);
+            return database.insertClass(klass).then(setChanged);
         });
     };
+    
+    function update(klass) {
+        return database.updateClass(klass).then(setChanged);
+    }
+    
+    function setChanged() { changed = true; }
 
     return Class;
 }
