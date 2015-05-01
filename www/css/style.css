@@ -36,3 +36,6 @@ hwo-color-picker .col.active {
   .item-content h2 {
     background-color: inherit !important;
     color: inherit !important; }
+
+input[type=date] {
+  text-align: right; }

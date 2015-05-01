@@ -13,3 +13,7 @@
         @include inherit-colors;
     }
 }
+
+input[type=date] {
+	text-align:right
+}
