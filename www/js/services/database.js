@@ -47,7 +47,6 @@ function Database($q, $ionicPlatform, DBConnection) {
             size: 1024 * 1024
         });
     }).then(function () {
-        deleteDatabase();
         createDatabase();
     }, function (e) {
         alert(e.message);
@@ -100,7 +99,8 @@ function Database($q, $ionicPlatform, DBConnection) {
                 tx.executeSql('INSERT INTO Classes(name, color, idx) VALUES (?, ?, ?);',
                     [ klass.name, klass.color, klass.idx ],
                     function (tx, res) {
-                        resolve(res);
+                        klass.id = res.insertId;
+                        resolve(klass);
                     },
                     function (tx, e) {
                         reject(e);

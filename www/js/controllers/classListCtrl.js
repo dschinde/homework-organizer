@@ -2,9 +2,7 @@
 
 angular.module('hwo').controller('ClassListCtrl', ClassListCtrl);
 
-function ClassListCtrl($scope, $state, Class, Assignment) {
-    //var filter = { excludeCompleted: true };
-    
+function ClassListCtrl($scope, $state, modifyClass, Class, Assignment) {
     Class.get().then(function (classes) {
         $scope.classes = classes;
         
@@ -23,9 +21,9 @@ function ClassListCtrl($scope, $state, Class, Assignment) {
     
     $scope.assignments = assignments;
     $scope.delete = deleteClass;
-    $scope.edit = edit;
     $scope.move = move;
     $scope.toggleEditing = toggleEditing;
+    $scope.modals = modifyClass.modals;
     
      
     
@@ -44,10 +42,6 @@ function ClassListCtrl($scope, $state, Class, Assignment) {
         
         klass.delete();
         classes.splice(klass.index, 1);
-    }
-    
-    function edit(klass) {
-        $state.go('editClass', { id: klass.id });
     }
     
     function move(klass, fromIndex, toIndex) {

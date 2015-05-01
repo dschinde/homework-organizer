@@ -121,7 +121,7 @@ function Class($q, database) {
     
     Class.get = function (id) {
         if (changed) {
-            database.getClasses().then(function (classes) {
+            return database.getClasses().then(function (classes) {
                 return classes.map(function (klass) {
                     return new Class(klass);
                 });
@@ -134,6 +134,8 @@ function Class($q, database) {
                 }, {});
                 
                 changed = false;
+                
+                return classes;
             });
         }
         
@@ -147,7 +149,15 @@ function Class($q, database) {
     Class.insert = function (klass) {
         return Class.get().then(function (classes) {
             klass.idx = classes.length;
-            return database.insertClass(klass).then(setChanged);
+            return database.insertClass(klass).then(function (klass) {
+                if (promise) {
+                    promise.then(function (classes) {
+                        classes.push(new Class(klass));
+                    });
+                } else {
+                    setChanged();
+                }
+            });
         });
     };
     

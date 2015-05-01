@@ -20,23 +20,6 @@ angular.module('hwo', [
         controller: 'ClassListCtrl',
         cache: false
     })
-    .state('insertClass', {
-        url: '/insertClass',
-        templateUrl: 'templates/insert-class.html',
-        controller: 'InsertClassCtrl'
-    })
-    .state('editClass', {
-        url: '/editClass?id',
-        templateUrl: 'templates/insert-class.html',
-        resolve: {
-            klass: function ($stateParams, Class) {
-                return Class.get($stateParams.id).then(function (klass) {
-                    return klass.edit();
-                });
-            }
-        },
-        controller: 'EditClassCtrl'
-    })
     
     .state('assignments', {
         url: '/assignments?classId',

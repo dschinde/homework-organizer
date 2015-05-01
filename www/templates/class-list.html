@@ -3,7 +3,7 @@
         <button class="button button-clear button-positive" ng-click="toggleEditing()">{{editing? 'Done':'Edit'}}</button>
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
-        <a class="button button-icon icon ion-plus" ui-sref="insertClass"></a>
+        <a class="button button-icon icon ion-plus" ng-click="modals.insert()"></a>
     </ion-nav-buttons>
     <ion-content>
         <ion-list   class="flex"
@@ -11,7 +11,7 @@
                     show-reorder="editing">
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass.color"
-                        ng-click="editing ? edit(klass) : assignments(klass)"
+                        ng-click="editing ? modals.edit(klass) : assignments(klass)"
                         class="flex-item flex-item-large"
                         style="pointer-events:auto;">
                 <h2>{{klass.name}}</h2>
