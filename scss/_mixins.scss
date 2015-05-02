@@ -1,25 +1,3 @@
-
-
-@mixin flex($args...) {
-    -webkit-flex: $args !important;
-    -ms-flex: $args !important;
-    flex: $args !important;
-}
-
-@mixin justify-content($arg) {
-    -webkit-justify-content: $arg;
-    justify-content: $arg;
-}
-
-@mixin flex-container($direction) {
-    display: -webkit-box !important;
-    display: -webkit-flex !important;
-    display: flex !important;
-    -webkit-flex-direction: $direction !important;
-    -ms-flex-direction: $direction !important;
-    flex-direction: $direction !important;
-}
-
 @mixin inherit-colors {
     background-color: inherit !important;
     color: inherit !important;

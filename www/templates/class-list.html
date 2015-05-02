@@ -6,19 +6,19 @@
         <a class="button button-icon icon ion-plus" ng-click="modals.insert()"></a>
     </ion-nav-buttons>
     <ion-content>
-        <ion-list   class="flex"
-                    show-delete="editing"
+        <ion-list   show-delete="editing"
                     show-reorder="editing">
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass.color"
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
-                        class="flex-item flex-item-large"
-                        style="pointer-events:auto;">
+                        class="item-large item-icon-right"
+                        style="pointer-events: auto;">
+                        
                 <h2>{{klass.name}}</h2>
                 <p ng-repeat="assignment in klass.assignments">
                     {{assignment.name}}
                 </p>
-                
+                <i class="icon ion-chevron-right dark"></i>
                 
                 <ion-delete-button  class="ion-minus-circled"
                                     ng-click="delete(klass)">
@@ -27,11 +27,9 @@
                                     on-reorder="move(klass, $fromIndex, $toIndex)">
                 </ion-reorder-button>
             </ion-item>
-            <div class="center">
-                <ion-item ui-sref="assignments({ classId: '' })" class="flex-item">
-                    <h2>All Assignments</h2>
-                </ion-item>
-            </div>
+            <ion-item ui-sref="assignments({ classId: '' })">
+                <h2>All Assignments</h2>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>
