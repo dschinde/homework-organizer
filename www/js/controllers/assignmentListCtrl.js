@@ -2,22 +2,44 @@
 
 angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
-function AssignmentListCtrl($scope, Assignment, klass) {
+function AssignmentListCtrl($scope, Assignment, modifyAssignment, klass) {
     // klass is resolved in the state config for assignmentList
     
-    var filter = { };
+    var isAllAssignmentsView = !klass,
+        filter = { };
     
-    if (klass) {
+    
+    if (!isAllAssignmentsView) {
         $scope.klass = klass;
         filter.classId = klass.id;
     }
     
-    Assignment.get(filter).then(function (assignments) {
-        $scope.dateGroups = groupByDate(assignments);
-    }, function (e) {
-        alert(e.message);
-    });
+    loadAssignments();
     
+    $scope.modals = {
+        edit: function (assignment) {
+            if (isAllAssignmentsView) {
+                modifyAssignment.modals.edit(assignment);
+            } else {
+                modifyAssignment.modals.edit(assignment).then(loadAssignments);
+            }
+        },
+        insert: function () {
+            modifyAssignment.modals.insert(klass).then(loadAssignments);
+        }
+    };
+    
+    $scope.delete = function (assignment) {
+        assignment.delete().then(loadAssignments);
+    };
+   
+    function loadAssignments() {
+        Assignment.get(filter).then(function (assignments) {
+            $scope.dateGroups = groupByDate(assignments);
+        }, function (e) {
+            alert(e.message);
+        });
+    }
     
     function groupByDate(assignments) {
         if (assignments.length === 0) return [];

@@ -39,3 +39,11 @@ hwo-color-picker .col.active {
 
 input[type=date] {
   text-align: right; }
+
+.item-checkbox {
+  padding-left: 0; }
+  .item-checkbox .item-content {
+    padding-left: 54px; }
+    .item-checkbox .item-content .checkbox {
+      display: flex;
+      align-items: center; }

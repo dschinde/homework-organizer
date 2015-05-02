@@ -1,4 +1,4 @@
-<ion-modal-view view-title="Add Class">
+<ion-modal-view>
     <ion-header-bar>
         <button class="button button-clear button-positive" ng-click="close()">Cancel</button>
         <h1 class="title">{{ isEditing() ? 'Edit Class' : 'Add Class' }}</h1>
@@ -21,7 +21,7 @@
             <button class="button button-block" 
                     hwo:style-for="klass.color" 
                     ng-click="submit(klass)" 
-                    ng-disabled="insertClass.$pristine || insertClass.$invalid">
+                    ng-disabled="(!isEditing() && insertClass.$pristine) || insertClass.$invalid">
                 {{ isEditing() ? 'Save Changes' : 'Create Class' }}
             </button>
         </form>

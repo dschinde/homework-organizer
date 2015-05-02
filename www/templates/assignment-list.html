@@ -1,37 +1,50 @@
 <ion-view>
     <ion-nav-title>
-        <a ui-sref="classList">
-            <h1 class="title positive">
+        <h1 class="title">
                 {{ klass.name || 'All' }}
-                <i class="icon ion-arrow-down-b"></i>
-            </h1>
-        </a>
+        </h1>
     </ion-nav-title>
     <ion-nav-buttons side="primary">
         <a class="button button-clear button-positive" ui-sref="classList">Classes</a>
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
-        <a class="button button-icon icon ion-plus" ui-sref="insertAssignment({classId: klass.id})"></a>
+        <a class="button button-icon icon ion-plus" ng-click="modals.insert(klass)"></a>
     </ion-nav-buttons>
     <ion-content>
-        <div class="list">
+        <ion-list>
             <div ng-repeat="dateGroup in dateGroups">
                 <div class="item item-divider">
                     {{ dateGroup.date | date : 'fullDate' }}
                 </div>
-                <div ng-if="klass" class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments">
+                <ion-item ng-if="klass" class="item-checkbox" ng-repeat="assignment in dateGroup.assignments">
                     <label class="checkbox">
                         <input type="checkbox" ng-model="assignment.completed"/>
                     </label>
                     {{ assignment.name }}
-                </div>
-                <div ng-if="!klass" class="item item-checkbox" ng-repeat="assignment in dateGroup.assignments" hwo:style-for="assignment">
+                    
+                    <ion-option-button class="button-positive" ng-click="modals.edit(assignment)">
+                        Edit
+                    </ion-option-button>
+                    
+                    <ion-option-button class="button-assertive" ng-click="delete(assignment)">
+                        Delete
+                    </ion-option-button>
+                </ion-item>
+                <ion-item ng-if="!klass" class="item-checkbox" ng-repeat="assignment in dateGroup.assignments" hwo:style-for="assignment.classId">
                     <label class="checkbox">
                         <input type="checkbox" ng-model="assignment.completed"/>
                     </label>
                     {{ assignment.name }}
-                </div>
+                    
+                    <ion-option-button class="button-positive" ng-click="modals.edit(assignment)">
+                        Edit
+                    </ion-option-button>
+                    
+                    <ion-option-button class="button-assertive" ng-click="delete(assignment)">
+                        Delete
+                    </ion-option-button>
+                </ion-item>
             </div>
-        </div>
+        </ion-list>
     </ion-content>
 </ion-view>

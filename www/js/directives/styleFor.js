@@ -3,7 +3,8 @@
 angular.module('hwo.ui').directive('hwoStyleFor', StyleForDirective);
 
 function StyleForDirective(colors, Assignment, Class) {
-    var isDefined = angular.isDefined;
+    var isDefined = angular.isDefined,
+        isNumber = angular.isNumber;
 
     return {
         restrict: 'A',
@@ -11,9 +12,14 @@ function StyleForDirective(colors, Assignment, Class) {
             $scope.$watch($attrs.hwoStyleFor, setStyle);
             
             function setStyle(value) {
+                console.log('setStyle', value);
                 if (isDefined(value)) {
-                    if (isDefined(value.classId)) {
-                        Class.get(value.classId).then(function (klass) {
+                    if (isNumber(value)) {
+                        console.log('setStyle -> calling Class.get()');
+                        Class.get(value).then(function (klass) {
+                            console.log('setStyle -> Class.get(' + value + ')');
+                            console.log('\tclass: ', klass);
+                            console.log('\tcolor: ' + klass.color);
                             setColor(klass.color);
                         });
                     } else {

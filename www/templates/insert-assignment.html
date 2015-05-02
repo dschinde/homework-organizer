@@ -1,23 +1,30 @@
-<ion-view view-title="Add Assignment">
-    <ion-nav-buttons side="primary">
-        <button class="button button-clear button-positive" ng-click="cancel()">Cancel</button>
-    </ion-nav-buttons>
+<ion-modal-view>
+    <ion-header-bar>
+        <button class="button button-clear button-positive" ng-click="close()">Cancel</button>
+        <h1 class="title">{{ isEditing() ? 'Edit Assignment' : 'Add Assignment' }}</h1>
+    </ion-header-bar>
     <ion-content class="padding">
-        <label class="item item-input">
-            <input type="text" placeholder="Assignment Name" ng-model="assignment.name" />
-        </label>
-        <label class="item item-input">
-            <span class="input-label">Due Date</span>
-            <input type="date" ng-model="assignment.dueDateTime" />
-        </label>
-        <label class="item item-input item-select">
-            <span class="input-label">Class</span>
-            <select ng-model="assignment.classId" ng-options="klass.id as klass.name for klass in classes">
-            </select>
-        </label>
+        <form name="insertAssignment">
+            <label class="item item-input">
+                <input type="text" placeholder="Assignment Name" ng-model="assignment.name" ng-required="true" />
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Due Date</span>
+                <input type="date" ng-model="assignment.dueDateTime" ng-required="true" />
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">Class</span>
+                <select ng-model="assignment.classId" 
+                        ng-options="klass.id as klass.name for klass in classes" 
+                        ng-required="true">
+                </select>
+            </label>
         
-        <button class="button button-block button-positive" ng-click="submit(assignment)">
-            Create Assignment
-        </button>
+            <button class="button button-block button-positive" 
+                    ng-click="submit(assignment)"
+                    ng-disabled="(!isEditing() && insertAssignment.$pristine) || insertAssignment.$invalid">
+                {{ isEditing() ? 'Save Changes' : 'Create Assignment' }}
+            </button>
+        </form>
     </ion-content>
-</ion-view>
+</ion-modal-view>

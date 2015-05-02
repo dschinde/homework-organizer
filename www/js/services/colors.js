@@ -31,7 +31,8 @@ function ColorsService() {
     }
     
     this.getTextColor = function (value) {
-        return this[value].text || 'black';
+        var color = this[value];
+        return color ? color.text : 'black';
     };
     
     this.length = colors.length;

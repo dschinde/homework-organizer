@@ -2,18 +2,10 @@
 
 angular.module('hwo').service('modifyClass', ModifyClass);
 
-function ModifyClass($rootScope, $ionicModal, Class) {
+function ModifyClass($q, $rootScope, $ionicModal, Class) {
     var $scope = $rootScope.$new(),
         templateUrl = 'templates/insert-class.html',
         animation = 'slide-in-up';
-        
-    $scope.close = function () {
-        if ($scope.modal) {
-            $scope.modal.remove();
-            $scope.modal = null;
-            $scope.klass = undefined;
-        }
-    };
     
     $scope.isEditing = function () {
         return $scope.klass && $scope.klass.editing;
@@ -31,23 +23,32 @@ function ModifyClass($rootScope, $ionicModal, Class) {
     
     this.modals = {
         edit: function (klass) {
-            open(klass);
+            return open(klass);
         },
         insert: function () {
-            open();
+            return open();
         }
     };
     
     function open(klass) {
-        $ionicModal.fromTemplateUrl(templateUrl, { 
-            scope: $scope,
-            animation: animation,
-            backdropClickToClose: false
-        }).then(function (modal) {
-            if (klass) $scope.klass = klass.edit();
-            $scope.modal = modal;
-            
-            modal.show();
+        return $q(function (resolve, reject) {
+            return $ionicModal.fromTemplateUrl(templateUrl, { 
+                scope: $scope,
+                animation: animation,
+                backdropClickToClose: false
+            }).then(function (modal) {
+                if (klass) $scope.klass = klass.edit();
+                $scope.modal = modal;
+                
+                $scope.close = function () {
+                    $scope.modal.remove();
+                    $scope.modal = null;
+                    $scope.klass = undefined;
+                    resolve();
+                };
+                
+                modal.show();
+            });
         });
     }
 }

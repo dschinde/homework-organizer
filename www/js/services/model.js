@@ -33,6 +33,7 @@ function Assignment(database) {
             database.updateAssignment(this.__obj);
         },
         set completed(val) {
+            console.log('completed', this.id, this.name);
             this.__obj.completed = val;
             database.setAssignmentCompleted(this.__obj.id, val);
         },
@@ -44,6 +45,25 @@ function Assignment(database) {
         
         delete: function () {
             return database.deleteAssignment(this.__obj.id);
+        },
+        
+        edit: function () {
+            var assignment = this;
+            
+            return {
+                editing: true,
+                name: assignment.name,
+                dueDateTime: assignment.dueDateTime,
+                completed: assignment.completed,
+                classId: assignment.classId,
+                save: function () {
+                    assignment.__obj.name = this.name;
+                    assignment.__obj.dueDateTime = this.dueDateTime;
+                    assignment.__obj.completed = this.completed;
+                    assignment.__obj.classId = this.classId;
+                    return database.updateAssignment(assignment.__obj);
+                }
+            };
         }
     };
     
@@ -128,36 +148,32 @@ function Class($q, database) {
             }).then(function (classes) {
                 promise = $q.when(classes);
                 
+                changed = false;
+                
                 map = classes.reduce(function (prev, klass) {
                     prev[klass.id] = klass;
                     return prev;
                 }, {});
-                
-                changed = false;
-                
-                return classes;
-            });
+            }).then(get);
+        } else {
+            return get();
         }
         
-        if (id) {
-            return $q.when(map[id]);
-        } else {
-            return promise;
+        
+        
+        function get() {
+            if (id) {
+                return $q.when(map[id]);
+            } else {
+                return promise;
+            }
         }
     };
     
     Class.insert = function (klass) {
         return Class.get().then(function (classes) {
             klass.idx = classes.length;
-            return database.insertClass(klass).then(function (klass) {
-                if (promise) {
-                    promise.then(function (classes) {
-                        classes.push(new Class(klass));
-                    });
-                } else {
-                    setChanged();
-                }
-            });
+            return database.insertClass(klass).then(setChanged);
         });
     };
     

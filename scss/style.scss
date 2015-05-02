@@ -15,5 +15,18 @@
 }
 
 input[type=date] {
-	text-align:right
+	text-align: right
+}
+
+.item-checkbox {
+    padding-left: 0;
+    
+    .item-content {
+        padding-left: 54px;
+        
+        .checkbox {
+            display: flex;
+            align-items: center;
+        }
+    }
 }

@@ -37,20 +37,6 @@ angular.module('hwo', [
         cache: false
     })
     
-    .state('insertAssignment', {
-        url: '/insertAssignment?classId',
-        templateUrl: 'templates/insert-assignment.html',
-        resolve: {
-            klass: function ($stateParams, Class) {
-                if (!$stateParams.classId) {
-                    return null;
-                } else {
-                    return Class.get($stateParams.classId);
-                }
-            }
-        },
-        controller: 'InsertAssignmentCtrl'
-    })
     .state('settings', {
         url: '/settings',
         templateUrl: 'templates/settings.html',

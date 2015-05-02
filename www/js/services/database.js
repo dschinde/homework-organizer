@@ -99,7 +99,7 @@ function Database($q, $ionicPlatform, DBConnection) {
                 tx.executeSql('INSERT INTO Classes(name, color, idx) VALUES (?, ?, ?);',
                     [ klass.name, klass.color, klass.idx ],
                     function (tx, res) {
-                        klass.id = res.insertId;
+                        klass.id = JSON.parse(res.insertId);
                         resolve(klass);
                     },
                     function (tx, e) {
@@ -307,7 +307,7 @@ function Database($q, $ionicPlatform, DBConnection) {
         return promise(function (resolve, reject) {
             db.transaction(function (tx) {
                 tx.executeSql('UPDATE Assignments SET name=?, dueDateTime=?, completed=?, classId=? WHERE id = ?;',
-                    [ assignment.name, assignment.dueDateTime.valueOf(), !!assignment.completed, assignment.classId, assignment.id ],
+                    [ assignment.name, assignment.dueDateTime.valueOf(), assignment.completed ? 1 : 0, assignment.classId, assignment.id ],
                     function (tx, res) {
                         resolve(res);
                     },

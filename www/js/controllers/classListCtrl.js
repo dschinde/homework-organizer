@@ -3,30 +3,18 @@
 angular.module('hwo').controller('ClassListCtrl', ClassListCtrl);
 
 function ClassListCtrl($scope, $state, modifyClass, Class, Assignment) {
-    Class.get().then(function (classes) {
-        $scope.classes = classes;
-        
-        classes.map(function (klass) {
-            return Assignment.get({
-                classId: klass.id,
-                limit: 3,
-                excludeCompleted: true
-            }).then(function (assignments) {
-                klass.assignments = assignments;
-            });
-        });
-    }, function (e) {
-        alert(e.message);
-    });
+    loadClasses();
     
     $scope.assignments = assignments;
     $scope.delete = deleteClass;
     $scope.move = move;
     $scope.toggleEditing = toggleEditing;
-    $scope.modals = modifyClass.modals;
-    
-     
-    
+    $scope.modals = {
+        edit: modifyClass.modals.edit,
+        insert: function () {
+            modifyClass.modals.insert().then(loadClasses);
+        }
+    };
     
     function assignments(klass) {
         $state.go('assignments', { classId: klass.id });
@@ -68,5 +56,23 @@ function ClassListCtrl($scope, $state, modifyClass, Class, Assignment) {
     
     function toggleEditing() {
         $scope.editing = !$scope.editing;
+    }
+    
+    function loadClasses() {
+        Class.get().then(function (classes) {
+        $scope.classes = classes;
+        
+        classes.map(function (klass) {
+            return Assignment.get({
+                    classId: klass.id,
+                    limit: 3,
+                    excludeCompleted: true
+                }).then(function (assignments) {
+                    klass.assignments = assignments;
+                });
+            });
+        }, function (e) {
+            alert(e.message);
+        });
     }
 }
