@@ -5,13 +5,17 @@
         </h1>
     </ion-nav-title>
     <ion-nav-buttons side="primary">
-        <a class="button button-clear button-positive" ui-sref="classList">Classes</a>
+        <a class="button button-clear button-positive" ui-sref="classList">
+            <i class="icon ion-ios-arrow-left"></i>
+            Classes
+        </a>
     </ion-nav-buttons>
     <ion-nav-buttons side="secondary">
         <a class="button button-icon icon ion-plus" ng-click="modals.insert(klass)"></a>
     </ion-nav-buttons>
     <ion-content>
-        <ion-list>
+        <img ng-if= "dateGroups.length === 0" ng-src="img/emptyassignment.gif"}></img>
+        <ion-list ng-if= "dateGroups.length !== 0">
             <div ng-repeat="dateGroup in dateGroups">
                 <div class="item item-divider">
                     {{ dateGroup.date | date : 'fullDate' }}

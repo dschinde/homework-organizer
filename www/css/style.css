@@ -14,7 +14,7 @@
   -ms-flex: 0 1 50% !important;
   flex: 0 1 50% !important; }
   .flex .flex-item.flex-item-large {
-    max-height: 25%; }
+    height: 25%; }
 .flex .center {
   -webkit-justify-content: center;
   justify-content: center; }
