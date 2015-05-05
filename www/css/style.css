@@ -14,7 +14,7 @@ hwo-color-picker .col.active {
   .list .item-large {
     height: 24%; }
 
-.icon.ion-chevron-right.black {
+.icon.ion-chevron-right.dark {
   color: #444 !important; }
 
 .item-content {
@@ -36,3 +36,6 @@ input[type=date] {
     .item-checkbox .item-content .checkbox {
       display: flex;
       align-items: center; }
+
+.light-text p {
+  color: #F9F9F9; }

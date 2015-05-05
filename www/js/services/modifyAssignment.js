@@ -14,7 +14,6 @@ function ModifyAssignment($q, $rootScope, $ionicModal, Assignment, Class) {
     };
     
     $scope.submit = function (assignment) {
-        console.log(JSON.stringify(assignment));
         var promise = $scope.isEditing() ? assignment.save() : Assignment.insert(assignment);
         
         promise.then(function () {
