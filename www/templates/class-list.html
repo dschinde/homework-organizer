@@ -16,7 +16,7 @@
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
                         class="item-large item-icon-right"
                         style="pointer-events: auto;">
-                <h2>{{klass.name}}</h2>
+                <h2 id="classTitle">{{klass.name}}</h2>
                 <i class="icon ion-chevron-right center"></i>
                 <p ng-repeat="assignment in klass.assignments">
                     {{assignment.name}}
