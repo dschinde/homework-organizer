@@ -10,12 +10,13 @@
         <ion-list   class="flex"
                     ng-if= "classes.length !== 0"
                     show-delete="editing"
-                    show-reorder="editing">
+                    show-reorder="editing"
+                    style="border: none;">
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass.color"
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
                         class="item-large item-icon-right"
-                        style="pointer-events: auto;">
+                        style="pointer-events: auto; border: none; margin: 0; padding: 0;">
                 <h2 id="classTitle">{{klass.name}}</h2>
                 <i class="icon ion-chevron-right center"></i>
                 <p ng-repeat="assignment in klass.assignments">
