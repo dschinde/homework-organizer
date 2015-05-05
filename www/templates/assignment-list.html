@@ -14,7 +14,7 @@
         <a class="button button-icon icon ion-plus" ng-click="modals.insert(klass)"></a>
     </ion-nav-buttons>
     <ion-content>
-        <img ng-if= "dateGroups.length === 0" ng-src="img/emptyassignment.gif"}></img>
+        <img ng-if= "dateGroups.length === 0" class="fullscreen-image" ng-src="img/emptyassignment.gif"}></img>
         <ion-list ng-if= "dateGroups.length !== 0">
             <div ng-repeat="dateGroup in dateGroups">
                 <div class="item item-divider">
