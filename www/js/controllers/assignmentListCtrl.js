@@ -2,11 +2,11 @@
 
 angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
-function AssignmentListCtrl($scope, Assignment, modifyAssignment, klass) {
+function AssignmentListCtrl($scope, $state, Assignment, modifyAssignment, klass) {
     // klass is resolved in the state config for assignmentList
     
     var isAllAssignmentsView = !klass,
-        filter = { };
+        filter = $state.current.data ? $state.current.data.filter: {};
     
     
     if (!isAllAssignmentsView) {

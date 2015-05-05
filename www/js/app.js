@@ -43,6 +43,17 @@ angular.module('hwo', [
         controller: 'SettingsCtrl',
         cache: false
     });
+
+    .state('assignments.completed', {
+        url: '/completed',
+        data: {
+            filter: {
+                onlyCompleted: true,
+                orderByDate: 'desc'
+            }
+        },
+        controller: 'AssignmentsListCtrl',
+    });
 })
 
 .run(function($ionicPlatform) {
