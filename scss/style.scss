@@ -1,12 +1,24 @@
 @import "mixins",
-		"flex",
 		"color-picker";
 
-.item-checkbox {
-	white-space: normal;
+.scroll {
+    height: 100%;
+}
+
+.list {
+    height: 100% !important;
+    
+    .item-large {
+        height: 24%;
+    }
+}
+
+.icon.ion-chevron-right.dark {
+    color: #444 !important;
 }
 
 .item-content {
+    height: 100%;
     @include inherit-colors;
     
     h2 {
@@ -20,6 +32,7 @@ input[type=date] {
 
 .item-checkbox {
     padding-left: 0;
+    white-space: normal;
     
     .item-content {
         padding-left: 54px;
@@ -29,4 +42,8 @@ input[type=date] {
             align-items: center;
         }
     }
+}
+
+.light-text p {
+    color: #F9F9F9;
 }

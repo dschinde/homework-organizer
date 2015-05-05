@@ -12,14 +12,9 @@ function StyleForDirective(colors, Assignment, Class) {
             $scope.$watch($attrs.hwoStyleFor, setStyle);
             
             function setStyle(value) {
-                console.log('setStyle', value);
                 if (isDefined(value)) {
                     if (isNumber(value)) {
-                        console.log('setStyle -> calling Class.get()');
                         Class.get(value).then(function (klass) {
-                            console.log('setStyle -> Class.get(' + value + ')');
-                            console.log('\tclass: ', klass);
-                            console.log('\tcolor: ' + klass.color);
                             setColor(klass.color);
                         });
                     } else {
@@ -29,9 +24,14 @@ function StyleForDirective(colors, Assignment, Class) {
             }
             
             function setColor(color) {
+                var textColor = colors.getTextColor(color);
+                if (textColor === '#FFFFFF') {
+                    $element.addClass('light-text');
+                }
+            
                 $element.css({
                     'backgroundColor': color,
-                    'color': colors.getTextColor(color)
+                    'color': textColor
                 });
             }
         }
