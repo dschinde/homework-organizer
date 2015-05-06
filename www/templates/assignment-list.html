@@ -30,7 +30,7 @@
     <ion-content>
         <ion-list ng-if="!showImage">
             <div ng-repeat="week in weeks">
-                <div class="item item-divider item-positive">
+                <div class="item item-divider item-dark week-divider">
                     {{ week.start | date : 'fullDate' }}
                 </div>
                 <div ng-repeat="day in week.days">

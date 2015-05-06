@@ -49,3 +49,6 @@ img .fit {
 img .center {
   display: block;
   margin: auto; }
+
+.week-divider {
+  font-weight: bold; }
