@@ -8,14 +8,7 @@ function AssignmentListCtrl($scope, $state, $ionicPopup, Assignment, modifyAssig
     
     if (!isAllAssignmentsView) {
         $scope.klass = klass;
-        filter.classId = klass.id;
-        klass.hasAssignments().then(function (res) {
-            $scope.showImage = !res;
-        });
-    } else {
-        Assignment.any().then(function (res) {
-            $scope.showImage = !res;
-        });
+        filter.classId = klass.id; 
     }
     
     loadAssignments();
@@ -45,6 +38,17 @@ function AssignmentListCtrl($scope, $state, $ionicPopup, Assignment, modifyAssig
     };
    
     function loadAssignments() {
+        if (isAllAssignmentsView) {
+            Assignment.any().then(function (res) {
+                $scope.showImage = !res;
+            });
+        } else {
+            klass.hasAssignments().then(function (res) {
+                $scope.showImage = !res;
+            });
+        }
+    
+    
         Assignment.get(filter).then(function (assignments) {
             var data = assignments.reduce(function (data, assignment) {
                 if (data.first) {
