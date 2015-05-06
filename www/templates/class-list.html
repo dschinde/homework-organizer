@@ -1,4 +1,18 @@
 <ion-view class="no-margin" view-title="Classes">
+        <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .fit { /* set relative picture size */
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .center {
+        display: block;
+        margin: auto;
+      }
+    </style>
     <ion-nav-buttons side="primary">
         <button class="button button-clear button-positive" ng-click="toggleEditing()">
             {{ editing ? 'Done':'Edit' }}
@@ -35,6 +49,6 @@
                 <i class="icon ion-chevron-right"></i>
             </ion-item>
         </ion-list>
-        <img class="center fit" ng-if="classes.length === 0" ng-src="img/emptyclass.gif" />
+        <img class="center fit" ng-if= "classes.length === 0" ng-src="img/emptyclass.gif">
     </ion-content>
 </ion-view>
