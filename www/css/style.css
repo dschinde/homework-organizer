@@ -43,6 +43,6 @@ input[type=date] {
 #classTitle {
   font-weight: bold; }
 
-#assignmentClass {
+select {
   position: absolute;
   right: 0px; }
