@@ -43,14 +43,6 @@ input[type=date] {
 #classTitle {
   font-weight: bold; }
 
-select {
-  position: absolute;
-  right: 0px; }
-
-no-margin * {
-  padding: 0;
-  margin: 0; }
-
 img .fit {
   max-width: 100%;
   max-height: 100%; }

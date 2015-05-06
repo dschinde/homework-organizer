@@ -24,6 +24,11 @@ angular.module('hwo', [
     .state('assignments', {
         url: '/assignments?classId',
         templateUrl: 'templates/assignment-list.html',
+        data: {
+            filter: {
+                excludeCompleted: true
+            }
+        },
         resolve: {
             klass: function ($stateParams, Class) {
                 if (!$stateParams.classId) {
@@ -37,15 +42,25 @@ angular.module('hwo', [
         cache: false
     })
     
-    .state('assignments.completed', {
-        url: '/completed',
+    .state('completedAssignments', {
+        url: '/completedAssignments?classId',
+        templateUrl: 'templates/assignment-list-completed.html',
         data: {
             filter: {
                 onlyCompleted: true,
                 orderByDate: 'desc'
             }
         },
-        controller: 'AssignmentsListCtrl',
+        resolve: {
+            klass: function ($stateParams, Class) {
+                if (!$stateParams.classId) {
+                    return null;
+                } else {
+                    return Class.get($stateParams.classId);
+                }
+            }
+        },
+        controller: 'AssignmentListCtrl',
         cache: false
     })
     

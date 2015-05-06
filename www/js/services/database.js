@@ -60,6 +60,7 @@ function Database($q, $ionicPlatform, DBConnection) {
     this.insertClass = insertClass;
     this.deleteClass = deleteClass;
     this.updateClass = updateClass;
+    this.classHasAssignments = classHasAssignments;
     
     this.getAssignments = getAssignments;
     this.insertAssignment = insertAssignment;
@@ -158,6 +159,22 @@ function Database($q, $ionicPlatform, DBConnection) {
         });
     }
     
+    function classHasAssignments(klass) {
+        return promise(function (resolve, reject) {
+            db.transaction(function (tx) {
+                tx.executeSql('SELECT id FROM Assignments WHERE classId = ? LIMIT 1;',
+                    [ klass.id ],
+                    function (tx, res) {
+                        resolve(res.rows.length !== 0);
+                    },
+                    function (tx, e) {
+                        reject(e);
+                    }
+                );
+            });
+        });
+    }
+    
     /* Methods - Assignments */
     /**
      * Gets assignments based on a filter
@@ -246,8 +263,8 @@ function Database($q, $ionicPlatform, DBConnection) {
             
             if (filter.orderByDate === 'asc') {
                 whereSql += ' ORDER BY dueDateTime ASC';
-            } else if (order.orderByDate === 'desc') {
-                whereSql += 'ORDER BY dueDateTime DESC';
+            } else if (filter.orderByDate === 'desc') {
+                whereSql += ' ORDER BY dueDateTime DESC';
             }
             
             if (filter.limit) {

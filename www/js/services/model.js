@@ -67,8 +67,14 @@ function Assignment(database) {
         }
     };
     
-    Assignment.get = function (filter, order) {
-        return database.getAssignments(filter, order).then(function (assignments) {
+    Assignment.any = function () {
+        return database.getAssignments({ limit: 1 }).then(function (assignments) {
+            return assignments.length !== 0;
+        });
+    };
+    
+    Assignment.get = function (filter) {
+        return database.getAssignments(filter).then(function (assignments) {
             return assignments.map(function (assignment) {
                 return new Assignment(assignment);
             });
@@ -119,6 +125,10 @@ function Class($q, database) {
         
         delete: function () {
             return database.deleteClass(this.__obj.id).then(setChanged);
+        },
+        
+        hasAssignments: function () {
+            return database.classHasAssignments(this.__obj);
         },
         
         edit: function () {

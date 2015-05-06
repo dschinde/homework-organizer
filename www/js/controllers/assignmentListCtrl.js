@@ -2,16 +2,20 @@
 
 angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
-function AssignmentListCtrl($scope, $state, Assignment, modifyAssignment, klass) {
-    // klass is resolved in the state config for assignmentList
-    
+function AssignmentListCtrl($scope, $state, $ionicPopup, Assignment, modifyAssignment, klass) {
     var isAllAssignmentsView = !klass,
-        filter = $state.current.data ? $state.current.data.filter: {};
-    
+        filter = $state.current.data.filter;
     
     if (!isAllAssignmentsView) {
         $scope.klass = klass;
         filter.classId = klass.id;
+        klass.hasAssignments().then(function (res) {
+            $scope.showImage = !res;
+        });
+    } else {
+        Assignment.any().then(function (res) {
+            $scope.showImage = !res;
+        });
     }
     
     loadAssignments();
@@ -30,12 +34,11 @@ function AssignmentListCtrl($scope, $state, Assignment, modifyAssignment, klass)
     };
     
     $scope.delete = function (assignment) {
-        var confirmPopup = $ionicPopup.confirm({
+        $ionicPopup.confirm({
             title: 'HWTracker',
             template: 'Are you sure you want to delete the assignment?'
-        });
-        confirmPopup.then(function(res) {
-            if(res){
+        }).then(function(res) {
+            if (res) {
                 assignment.delete().then(loadAssignments);
             }
         });

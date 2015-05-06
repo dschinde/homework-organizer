@@ -5,16 +5,13 @@
         </h1>
     </ion-nav-title>
     <ion-nav-buttons side="primary">
-        <a class="button button-clear button-positive" ui-sref="classList">
+        <a class="button button-clear button-positive" ui-sref="assignments({ classId: klass.id })">
             <i class="icon ion-ios-arrow-left"></i>
-            Classes
+            Back
         </a>
     </ion-nav-buttons>
-    <ion-nav-buttons side="secondary">
-        <a class="button button-icon icon ion-plus" ng-click="modals.insert(klass)"></a>
-    </ion-nav-buttons>
     <ion-content>
-        <ion-list ng-if="!showImage">
+        <ion-list can-swipe="false">
             <div ng-repeat="week in weeks">
                 <div class="item item-divider item-assertive">
                     {{ week.start | date : 'fullDate' }}
@@ -53,11 +50,6 @@
                     </ion-item>
                 </div>
             </div>
-            <a class="item item-icon-right" ui-sref="completedAssignments({ classId: klass.id })">
-                Completed Assignments
-                <i class="icon ion-chevron-right"></i>
-            </a>
         </ion-list>
-        <img class="center fit" ng-if= "showImage" ng-src="img/emptyassignment.gif" />
     </ion-content>
 </ion-view>
