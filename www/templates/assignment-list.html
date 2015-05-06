@@ -1,4 +1,18 @@
 <ion-view>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .fit { /* set relative picture size */
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .center {
+        display: block;
+        margin: auto;
+      }
+    </style>
     <ion-nav-title>
         <h1 class="title">
                 {{ klass.name || 'All' }}
@@ -14,7 +28,7 @@
         <a class="button button-icon icon ion-plus" ng-click="modals.insert(klass)"></a>
     </ion-nav-buttons>
     <ion-content>
-        <img ng-if= "dateGroups.length === 0" class="fullscreen-image" ng-src="img/emptyassignment.gif"}></img>
+        <img  class="center fit" ng-if= "dateGroups.length === 0" ng-src="img/emptyassignment.gif">
         <ion-list ng-if= "dateGroups.length !== 0">
             <div ng-repeat="dateGroup in dateGroups">
                 <div class="item item-divider">
