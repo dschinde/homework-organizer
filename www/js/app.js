@@ -37,13 +37,6 @@ angular.module('hwo', [
         cache: false
     })
     
-    .state('settings', {
-        url: '/settings',
-        templateUrl: 'templates/settings.html',
-        controller: 'SettingsCtrl',
-        cache: false
-    });
-
     .state('assignments.completed', {
         url: '/completed',
         data: {
@@ -53,6 +46,14 @@ angular.module('hwo', [
             }
         },
         controller: 'AssignmentsListCtrl',
+        cache: false
+    })
+    
+    .state('settings', {
+        url: '/settings',
+        templateUrl: 'templates/settings.html',
+        controller: 'SettingsCtrl',
+        cache: false
     });
 })
 

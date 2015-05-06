@@ -167,23 +167,21 @@ function Database($q, $ionicPlatform, DBConnection) {
      * @param {Date} [filter.before] - Only assignments due before the given date and time will be returned.
      * @param {Date} [filter.after] - Only assignments due after the given date and time will be returned.
      * @param {number} [filter.limit] - Only returns up to the given number of assignments
-     * @param {Object} [order] - Determines the order of the results
-     * @param {boolean} [order.orderByDate=true] - Orders the resulting assignments by due date and time.
+     * @param {string} [filter.orderByDate='asc'] - Can be either 'asc' or 'desc'. If 'asc', orders the assignments by date in ascending order; if 'desc' orders them by date in descending order.
+     * @param {boolean} [filter.onlyCompleted] - Only returns completed assignments
      */
-    function getAssignments(filter, order) {
+    function getAssignments(filter) {
         var sql = 'SELECT id, name, dueDateTime, completed, classId FROM Assignments';
         var defaults = {
             filter: {
-                excludeCompleted: false
-            },
-            order: {
-                orderByDate: true
+                excludeCompleted: false,
+                onlyCompleted: false,
+                orderByDate: 'asc'
             }
         };
         var args = [];
         
         filter = extend({}, defaults.filter, filter);
-        order = extend({}, defaults.order, order);
         
         sql += buildWhereSql();
         sql += ';';
@@ -229,6 +227,11 @@ function Database($q, $ionicPlatform, DBConnection) {
                 whereSql += ' completed = 0';
             }
             
+            if (filter.onlyCompleted) {
+                whereSql += whereSql.length === 0 ? ' WHERE' : ' AND';
+                whereSql += ' completed = 1';
+            }
+            
             if (filter.before) {
                 whereSql += whereSql.length === 0 ? ' WHERE' : ' AND';
                 whereSql += ' dueDateTime < ?';
@@ -241,8 +244,10 @@ function Database($q, $ionicPlatform, DBConnection) {
                 args.push(filter.after.valueOf());
             }
             
-            if (order.orderByDate) {
+            if (filter.orderByDate === 'asc') {
                 whereSql += ' ORDER BY dueDateTime ASC';
+            } else if (order.orderByDate === 'desc') {
+                whereSql += 'ORDER BY dueDateTime DESC';
             }
             
             if (filter.limit) {
