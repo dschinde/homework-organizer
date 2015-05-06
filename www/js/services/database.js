@@ -47,7 +47,6 @@ function Database($q, $ionicPlatform, DBConnection) {
             size: 1024 * 1024
         });
     }).then(function () {
-        deleteDatabase();
         createDatabase();
     }, function (e) {
         alert(e.message);
