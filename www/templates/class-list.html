@@ -30,10 +30,11 @@
                                     on-reorder="move(klass, $fromIndex, $toIndex)">
                 </ion-reorder-button>
             </ion-item>
-            <ion-item ui-sref="assignments({ classId: '' })">
+            <ion-item class="item-icon-right" ui-sref="assignments({ classId: '' })">
                 <h2>All Assignments</h2>
+                <i class="icon ion-chevron-right"></i>
             </ion-item>
         </ion-list>
-        <img class="center fit" ng-if= "classes.length === 0" ng-src="img/emptyclass.gif" />
+        <img class="center fit" ng-if="classes.length === 0" ng-src="img/emptyclass.gif" />
     </ion-content>
 </ion-view>
