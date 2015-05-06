@@ -2,7 +2,7 @@
 
 angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
-function AssignmentListCtrl($scope, Assignment, modifyAssignment, klass) {
+function AssignmentListCtrl($scope, $state, $ionicPopup, Assignment, modifyAssignment, klass) {
     // klass is resolved in the state config for assignmentList
     
     var isAllAssignmentsView = !klass,
@@ -30,14 +30,19 @@ function AssignmentListCtrl($scope, Assignment, modifyAssignment, klass) {
     };
     
     $scope.delete = function (assignment) {
-        assignment.delete().then(loadAssignments);
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'HWTracker',
+            template: 'Are you sure you want to delete the assignment?'
+        });
+        confirmPopup.then(function(res) {
+            if(res){
+                assignment.delete().then(loadAssignments);
+            }
+        });
     };
    
     function loadAssignments() {
         Assignment.get(filter).then(function (assignments) {
-            $scope.dateGroups = groupByDate(assignments);
-            
-            
             var data = assignments.reduce(function (data, assignment) {
                 if (data.first) {
                     var day = new Day(assignment.dueDateTime);

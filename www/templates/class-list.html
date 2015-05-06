@@ -1,4 +1,18 @@
 <ion-view view-title="Classes">
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .fit { /* set relative picture size */
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .center {
+        display: block;
+        margin: auto;
+      }
+    </style>
     <ion-nav-buttons side="primary">
         <button class="button button-clear button-positive" ng-click="toggleEditing()">
             {{ editing ? 'Done':'Edit' }}
@@ -8,15 +22,18 @@
         <a class="button button-icon icon ion-plus" ng-click="modals.insert()"></a>
     </ion-nav-buttons>
     <ion-content>
-        <ion-list   show-delete="editing"
+        <img class="center fit" ng-if= "classes.length === 0" ng-src="img/emptyclass.gif">
+        <ion-list   class="flex"
+                    ng-if= "classes.length !== 0"
+                    show-delete="editing"
                     show-reorder="editing">
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass.color"
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
                         class="item-large item-icon-right"
                         style="pointer-events: auto;">
-                        
-                <h2>{{klass.name}}</h2>
+                <h2 id="classTitle">{{klass.name}}</h2>
+                <i class="icon ion-chevron-right center"></i>
                 <p ng-repeat="assignment in klass.assignments">
                     {{assignment.name}}
                 </p>
