@@ -57,13 +57,6 @@ angular.module('hwo', [
             }
         },
         cache: false
-    })
-    
-    .state('settings', {
-        url: '/settings',
-        templateUrl: 'templates/settings.html',
-        controller: 'SettingsCtrl',
-        cache: false
     });
 })
 
