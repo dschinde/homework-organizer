@@ -84,10 +84,10 @@ function AssignmentListCtrl($scope, Assignment, modifyAssignment, klass) {
         this.start = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
         this.end = new Date(this.start.valueOf());
         this.end.setDate(this.end.getDate() + 7);
-        this.days = [];
+        this.days = [ day ];
         this.contains = function (date) {
             return this.start.valueOf() <= date.valueOf()
-                && this.end.valueOf() <= date.valueOf();
+                && date.valueOf() < this.end.valueOf();
         };
     }
     
@@ -97,39 +97,8 @@ function AssignmentListCtrl($scope, Assignment, modifyAssignment, klass) {
     }
     
     function isSameDay(x, y) {
-        return !!x && !!y
-            && x.getDate() === y.getDate()
+        return x.getDate() === y.getDate()
             && x.getMonth() === y.getMonth()
             && x.getFullYear() === y.getFullYear();
-    }
-    
-    function groupByDate(assignments) {
-        if (assignments.length === 0) return [];
-        
-        var groups = [];
-        var current = createGroup(assignments[0]);
-        
-        for (var i = 1; i < assignments.length; i++) {
-            var assignment = assignments[i];
-            if (isSameDay(current.date, assignment.dueDateTime)) {
-                current.assignments.push(assignment);
-            } else {
-                groups.push(current);
-                current = createGroup(assignments[i]);
-            }
-        }
-        
-        groups.push(current);
-        
-        return groups;
-        
-        
-        
-        function createGroup(assignment) {
-            return {
-                date: assignment.dueDateTime,
-                assignments: [ assignment ]
-            };
-        }
     }
 }
