@@ -1,4 +1,4 @@
-<ion-view class="no-margin" view-title="Classes">
+<ion-view view-title="Classes">
     </style>
     <ion-nav-buttons side="primary">
         <button class="button button-clear button-positive" ng-click="toggleEditing()">
@@ -15,7 +15,7 @@
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass.color"
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
-                        class="item-large item-icon-right"
+                        class="item-large item-icon-right remove-border no-margin"
                         style="pointer-events: auto;">
                 <h2 id="classTitle">{{klass.name}}</h2>
                 <i class="icon ion-chevron-right center"></i>
@@ -36,6 +36,6 @@
                 <i class="icon ion-chevron-right"></i>
             </ion-item>
         </ion-list>
-        <img class="center fit" ng-if= "classes.length === 0" ng-src="img/emptyclass.gif">
+        <img class="center fit no-margin" ng-if= "classes.length === 0" ng-src="img/emptyclass.gif">
     </ion-content>
 </ion-view>

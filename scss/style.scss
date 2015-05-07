@@ -52,27 +52,15 @@ input[type=date] {
     font-weight: bold;
 }
 
-img {
-    .fit {
-        max-width: 100%;
-        max-height: 100%;
-    }
-    
-    .center {
-        display: block;
-        margin: auto;
-    }
-}
-
 .week-divider {
     font-weight: bold;
 }
 
-
-no-margin * {
+.no-margin {
     padding: 0;
     margin: 0;
 }
+
 img {
   &.fit {
     max-width: 100%;
@@ -82,4 +70,8 @@ img {
     display: block;
     margin: auto;
   }
+}
+
+.remove-border {
+    border: none;
 }

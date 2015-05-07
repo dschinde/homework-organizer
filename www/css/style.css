@@ -43,12 +43,19 @@ input[type=date] {
 #classTitle {
   font-weight: bold; }
 
-img .fit {
+.week-divider {
+  font-weight: bold; }
+
+.no-margin {
+  padding: 0;
+  margin: 0; }
+
+img.fit {
   max-width: 100%;
   max-height: 100%; }
-img .center {
+img.center {
   display: block;
   margin: auto; }
 
-.week-divider {
-  font-weight: bold; }
+.remove-border {
+  border: none; }
