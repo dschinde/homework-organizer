@@ -48,22 +48,6 @@ function ClassListCtrl($scope, $state, $ionicPopup, $q, modifyClass, Class, Assi
         });
     }
 
-//    function deleteClass($event, klass) {
-//        if(confirm("Are you sure you want to delete the class?")){
-//            var classes = $scope.classes;
-//            var length = classes.length;
-//            for (var i = klass.index + 1; i < length; i++) {
-//                var other = classes[i];
-//                other.index--;
-//            }
-//            
-//            klass.delete();
-//            classes.splice(klass.index, 1);
-//        } else {
-//            $event.preventDefault();
-//        }
-//    }
-    
     function move(klass, fromIndex, toIndex) {
         if (fromIndex !== toIndex) {
             var classes = $scope.classes;

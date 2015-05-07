@@ -2,6 +2,9 @@
 
 angular.module('hwo').controller('AssignmentListCtrl', AssignmentListCtrl);
 
+/**
+ * Class for controlling assignment list
+ */
 function AssignmentListCtrl($scope, $state, $ionicPopup, Assignment, modifyAssignment, klass) {
     var isAllAssignmentsView = !klass,
         filter = $state.current.data.filter;
