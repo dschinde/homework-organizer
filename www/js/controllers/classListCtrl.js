@@ -27,7 +27,7 @@ function ClassListCtrl($scope, $state, $ionicPopup, $q, modifyClass, Class, Assi
         $state.go('assignments', { classId: klass.id });
     }
     
-    function deleteClass($event, klass) {
+    function deleteClass(klass) {
         editPromise = $ionicPopup.confirm({
             title: 'HWTracker',
             template: 'Are you sure you want to delete the class?'
