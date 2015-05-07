@@ -4,6 +4,9 @@ angular.module('hwo.data')
 .factory('Assignment', Assignment)
 .factory('Class', Class);
 
+/**
+ * Allows properties to be set directly on the object in the database
+ */
 function Assignment(database) {
     function Assignment(assignment) {
         this.__obj = {
@@ -88,6 +91,9 @@ function Assignment(database) {
     return Assignment;
 }
 
+/**
+ * Allows properties to be set directly on the object in the database
+ */
 function Class($q, database) {
     var changed = true,
         map,
@@ -169,14 +175,9 @@ function Class($q, database) {
             return get();
         }
         
-        
-        
         function get() {
-            if (id) {
-                return $q.when(map[id]);
-            } else {
-                return promise;
-            }
+            if (id) return $q.when(map[id]);
+            else return promise;
         }
     };
     

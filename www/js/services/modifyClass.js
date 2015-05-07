@@ -2,6 +2,9 @@
 
 angular.module('hwo').service('modifyClass', ModifyClass);
 
+/**
+ * Creates modal views for creating or editing classes
+ */
 function ModifyClass($q, $rootScope, $ionicModal, Class) {
     var $scope = $rootScope.$new(),
         templateUrl = 'templates/insert-class.html',

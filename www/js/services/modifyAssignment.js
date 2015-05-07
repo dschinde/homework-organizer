@@ -2,13 +2,14 @@
 
 angular.module('hwo').service('modifyAssignment', ModifyAssignment);
 
+/**
+ * Creates modal views for creating or editing assignments
+ */
 function ModifyAssignment($q, $rootScope, $ionicModal, Assignment, Class) {
     var $scope = $rootScope.$new(),
         templateUrl = 'templates/insert-assignment.html',
         animation = 'slide-in-up';
         
-    
-    
     $scope.isEditing = function () {
         return $scope.assignment && $scope.assignment.editing;
     };

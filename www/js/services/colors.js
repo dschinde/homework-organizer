@@ -4,6 +4,9 @@ var isObject = angular.isObject;
 
 angular.module('hwo.ui').service('colors', ColorsService);
 
+/**
+ * Provides the colors and text colors for classes
+ */
 function ColorsService() {
     var colors = [
         { hex: '#F44336', text: '#FFFFFF' },
