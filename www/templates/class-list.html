@@ -1,17 +1,4 @@
 <ion-view class="no-margin" view-title="Classes">
-        <style>
-      * {
-        padding: 0;
-        margin: 0;
-      }
-      .fit { /* set relative picture size */
-        max-width: 100%;
-        max-height: 100%;
-      }
-      .center {
-        display: block;
-        margin: auto;
-      }
     </style>
     <ion-nav-buttons side="primary">
         <button class="button button-clear button-positive" ng-click="toggleEditing()">
@@ -29,7 +16,7 @@
                         hwo:style-for="klass.color"
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
                         class="item-large item-icon-right"
-                        style="pointer-events: auto; border: none; margin: 0; padding: 0">
+                        style="pointer-events: auto;">
                 <h2 id="classTitle">{{klass.name}}</h2>
                 <i class="icon ion-chevron-right center"></i>
                 <p ng-repeat="assignment in klass.assignments">
