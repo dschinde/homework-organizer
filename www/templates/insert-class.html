@@ -1,8 +1,10 @@
 <ion-modal-view>
+    <!-- Add button for new classes -->
     <ion-header-bar>
         <button class="button button-clear button-positive" ng-click="close()">Cancel</button>
         <h1 class="title">{{ isEditing() ? 'Edit Class' : 'Add Class' }}</h1>
     </ion-header-bar>
+    <!-- Insert new class form -->
     <ion-content class="padding">
         <form name="insertClass">
             <label class="item item-input">
@@ -12,14 +14,16 @@
                         ng-model="klass.name" 
                         ng-required = "true"/>
             </label>
+            <!-- Letting user choose color for the class -->
             <div class="item">
                 <hwo-color-picker   name="classColor" 
                                     ng-model="klass.color" 
                                     ng-required = "true">
                 </hwo-color-picker>
             </div>
+            <!-- Submitting the new class to the database, button color changes according to chosen color on palette; adding existed class names not allowed -->
             <button class="button button-block" 
-                    hwo:style-for="klass.color" 
+                    hwo:style-for="klass.color"  
                     ng-click="submit(klass)" 
                     ng-disabled="(!isEditing() && insertClass.$pristine) || insertClass.$invalid">
                 {{ isEditing() ? 'Save Changes' : 'Create Class' }}

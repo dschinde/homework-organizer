@@ -1,9 +1,11 @@
 <ion-view>
+    <!-- Display current class name that completed assignments belong to -->
     <ion-nav-title>
         <h1 class="title">
                 {{ klass.name || 'All' }}
         </h1>
     </ion-nav-title>
+    <!-- Navigate back to the class page that completed assignments belong to -->
     <ion-nav-buttons side="primary">
         <a class="button button-clear button-positive" ui-sref="assignments({ classId: klass.id })">
             <i class="icon ion-ios-arrow-left"></i>
@@ -11,15 +13,19 @@
         </a>
     </ion-nav-buttons>
     <ion-content>
+        <!-- List of completed assignments, these cannot be modified i.e. swipe left for edit/delete -->
         <ion-list can-swipe="false">
+            <!-- List completed assignments first by weeks, displayed as black bars -->
             <div ng-repeat="week in weeks">
                 <div class="item item-divider item-dark week-divider">
                     {{ week.start | date : 'fullDate' }}
                 </div>
+                <!-- Within each week, list completed assignments by past due dates -->
                 <div ng-repeat="day in week.days">
                     <div class="item item-divider">
                         {{ day.date | date : 'fullDate' }}
                     </div>
+                    <!-- Checkbox for assignments completion for class > assignment page, unchecking these removes this assignment from completed list -->
                     <ion-item ng-if="klass" class="item-checkbox" ng-repeat="assignment in day.assignments">
                         <label class="checkbox">
                             <input type="checkbox" ng-model="assignment.completed"/>
@@ -34,6 +40,7 @@
                             Delete
                         </ion-option-button>
                     </ion-item>
+                    <!-- Checkbox for assignments completion for All Assignments page-->
                     <ion-item ng-if="!klass" class="item-checkbox" ng-repeat="assignment in day.assignments" hwo:style-for="assignment.classId">
                         <label class="checkbox">
                             <input type="checkbox" ng-model="assignment.completed"/>

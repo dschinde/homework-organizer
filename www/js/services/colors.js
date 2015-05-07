@@ -8,6 +8,7 @@ angular.module('hwo.ui').service('colors', ColorsService);
  * Provides the colors and text colors for classes
  */
 function ColorsService() {
+    // Color palette for background and text combinations for color picker options
     var colors = [
         { hex: '#F44336', text: '#FFFFFF' },
         { hex: '#E91E63', text: '#FFFFFF' },

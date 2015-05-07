@@ -1,7 +1,10 @@
+/*Styling options for color picker columns*/
 hwo-color-picker .col {
   margin: 2%;
   padding: 4%;
   opacity: 0.75; }
+
+/*Highlight chosen color by solid black borders*/  
 hwo-color-picker .col.active {
   opacity: 1;
   outline: thick solid black; }
@@ -25,9 +28,6 @@ hwo-color-picker .col.active {
     background-color: inherit !important;
     color: inherit !important; }
 
-input[type=date] {
-  text-align: right; }
-
 .item-checkbox {
   padding-left: 0;
   white-space: normal; }
@@ -46,6 +46,9 @@ input[type=date] {
 .week-divider {
   font-weight: bold; }
 
+.remove-border {
+  border: none; }
+
 .no-margin {
   padding: 0;
   margin: 0; }
@@ -57,5 +60,6 @@ img.center {
   display: block;
   margin: auto; }
 
-.remove-border {
-  border: none; }
+input[type=date] {
+  text-align: right; }
+

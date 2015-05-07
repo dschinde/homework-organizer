@@ -1,17 +1,21 @@
 <ion-view view-title="Classes">
     </style>
+    <!-- Edit button for current classes -->
     <ion-nav-buttons side="primary">
         <button class="button button-clear button-positive" ng-click="toggleEditing()">
             {{ editing ? 'Done':'Edit' }}
         </button>
     </ion-nav-buttons>
+    <!-- Add button for new classes -->
     <ion-nav-buttons side="secondary">
         <a class="button button-icon icon ion-plus" ng-click="modals.insert()"></a>
     </ion-nav-buttons>
     <ion-content>
+        <!-- If there are no classes in the list, there will be no edit button -->
         <ion-list   ng-if= "classes.length !== 0"
                     show-delete="editing"
                     show-reorder="editing">
+            <!-- Display each class item in the class list -->
             <ion-item   ng-repeat="klass in classes" 
                         hwo:style-for="klass.color"
                         ng-click="editing ? modals.edit(klass) : assignments(klass)"
@@ -23,7 +27,7 @@
                     {{assignment.name}}
                 </p>
                 <i class="icon ion-chevron-right dark"></i>
-                
+                <!-- Edit class functionalities such as deletion or rearrangement are toggled when edit button is clicked -->
                 <ion-delete-button  class="ion-minus-circled"
                                     ng-click="delete(klass)">
                 </ion-delete-button>
@@ -31,6 +35,7 @@
                                     on-reorder="move(klass, $fromIndex, $toIndex)">
                 </ion-reorder-button>
             </ion-item>
+            <!-- Navigate to the assignment page of each class -->
             <ion-item class="item-icon-right" ui-sref="assignments({ classId: '' })">
                 <h2>All Assignments</h2>
                 <i class="icon ion-chevron-right"></i>
