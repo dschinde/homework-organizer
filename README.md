@@ -1,6 +1,12 @@
 # homework-organizer
 A homework organizer for mobile devices
 
+# Ionic
+	$ npm install -g ionic cordova
+	
+	
+	$ npm install
+
 # Git
 
 ## Getting changes
