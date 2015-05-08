@@ -1,21 +1,17 @@
 <ion-modal-view>
-    <!-- Add button for new assignment -->
     <ion-header-bar>
         <button class="button button-clear button-positive" ng-click="close()">Cancel</button>
         <h1 class="title">{{ isEditing() ? 'Edit Assignment' : 'Add Assignment' }}</h1>
     </ion-header-bar>
     <ion-content class="padding">
-        <!-- Insert new assignment form -->
         <form name="insertAssignment">
             <label class="item item-input">
                 <input type="text" placeholder="Assignment Name" ng-model="assignment.name" ng-required="true" />
             </label>
-            <!-- User is required to input due date for each assignment -->
             <label class="item item-input">
                 <span class="input-label positive">Due Date</span>
                 <input type="date" ng-model="assignment.dueDateTime" ng-required="true" />
             </label>
-            <!-- In case the user is in the wrong class, he/she has the chance to assign to the correct one -->
             <label class="item item-input item-select">
                 <span class="input-label positive">Class</span>
                 <select ng-model="assignment.classId" 
@@ -23,7 +19,7 @@
                         ng-required="true">
                 </select>
             </label>
-            <!-- Submit the new assignment, not possible if required fields are not filled out -->
+        
             <button class="button button-block button-positive" 
                     ng-click="submit(assignment)"
                     ng-disabled="(!isEditing() && insertAssignment.$pristine) || insertAssignment.$invalid">

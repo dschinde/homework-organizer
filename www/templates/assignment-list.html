@@ -1,41 +1,34 @@
 <ion-view>
-    <!-- Display current class name that assignments belong to -->
     <ion-nav-title>
         <h1 class="title">
                 {{ klass.name || 'All' }}
         </h1>
     </ion-nav-title>
-    <!-- Navigation button to the class list page -->
     <ion-nav-buttons side="primary">
         <a class="button button-clear button-positive" ui-sref="classList">
             <i class="icon ion-ios-arrow-left"></i>
             Classes
         </a>
     </ion-nav-buttons>
-    <!-- Add assignment button -->
     <ion-nav-buttons side="secondary">
         <a class="button button-icon icon ion-plus" ng-click="modals.insert(klass)"></a>
     </ion-nav-buttons>
     <ion-content>
-        <!-- List of assignments for current class page, show add assignment prompt if no assignments are found -->
         <ion-list ng-if="!showImage">
-            <!-- List assignments first by weeks, displayed as black bars -->
             <div ng-repeat="week in weeks">
                 <div class="item item-divider item-dark week-divider">
                     {{ week.start | date : 'fullDate' }}
                 </div>
-                <!-- Within each week, list assignment by due date -->
                 <div ng-repeat="day in week.days">
                     <div class="item item-divider">
                         {{ day.date | date : 'fullDate' }}
                     </div>
-                    <!-- Checkbox for assignments completion for class > assignment page-->
                     <ion-item ng-if="klass" class="item-checkbox" ng-repeat="assignment in day.assignments">
                         <label class="checkbox">
                             <input type="checkbox" ng-model="assignment.completed"/>
                         </label>
                         {{ assignment.name }}
-                        <!-- Options appear once swiped left/right: edit/delete assignment -->
+                        
                         <ion-option-button class="button-positive" ng-click="modals.edit(assignment)">
                             Edit
                         </ion-option-button>
@@ -44,7 +37,6 @@
                             Delete
                         </ion-option-button>
                     </ion-item>
-                    <!-- Checkbox for assignments completion for All Assignments page-->
                     <ion-item ng-if="!klass" class="item-checkbox" ng-repeat="assignment in day.assignments" hwo:style-for="assignment.classId">
                         <label class="checkbox">
                             <input type="checkbox" ng-model="assignment.completed"/>
@@ -61,7 +53,6 @@
                     </ion-item>
                 </div>
             </div>
-            <!-- Navigate to completed assignments for that class -->
             <a class="item item-icon-right" ui-sref="assignments.completed">
                 Completed Assignments
                 <i class="icon ion-chevron-right"></i>
