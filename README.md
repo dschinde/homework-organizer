@@ -24,6 +24,7 @@ A homework organizer for mobile devices
 * Create an Ionic View account
 
 ## Uploading your app
-    $ gulp sass     # if any sass changes have been made
-    $ ionic upload
+    $ gulp sass     		# if any sass changes have been made
+    $ ionic upload  		# upload to Ionic View for the iPhone
+    $ ionic upload android	# upload to Ionic View for Android phones
 
